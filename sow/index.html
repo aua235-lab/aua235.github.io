@@ -4,32 +4,138 @@
     <meta charset="UTF-8">
     <title>아사히나 소우 (朝比奈 蒼)</title>
     <style>
-        body { background-color: #131517; font-family: 'Malgun Gothic', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: #ffffff; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: center; max-width: 360px; width: 100%; border-top: 6px solid #2a7b73; }
-        .oc-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #2a7b73; }
-        h1 { color: #111; margin: 18px 0 5px 0; font-size: 22px; letter-spacing: -0.5px; }
-        .info { color: #666; font-size: 14px; margin-bottom: 20px; font-weight: 500; }
-        .story { color: #333; font-size: 14px; line-height: 1.6; background: #f4f7f6; padding: 18px; border-radius: 12px; text-align: left; border-left: 4px solid #2a7b73; }
-        .bgm-btn { margin-top: 25px; padding: 11px 22px; background: #2a7b73; color: white; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .bgm-btn:hover { background: #1d5751; }
+        /* 1930년대 나고야 느와르 분위기에 맞춘 시네마틱 디자인 */
+        body { 
+            background-color: #0b0d0f; 
+            font-family: 'Malgun Gothic', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0;
+            background: radial-gradient(circle, #1a1f24 0%, #0b0d0f 100%);
+        }
+        
+        /* 휑한 느낌을 없애기 위해 널찍한 반반 구조(Split Layout) 채택 */
+        .wrapper {
+            display: flex;
+            max-width: 850px;
+            width: 90%;
+            background: #14181b;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            border: 1px solid rgba(42, 123, 115, 0.2);
+        }
+
+        /* 왼쪽: 소우의 거대한 일러스트 구역 */
+        .photo-panel {
+            flex: 1.2;
+            background: #0d0f11;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            min-height: 450px;
+        }
+        .oc-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+        }
+
+        /* 오른쪽: 상세 프로필 및 썰 구역 */
+        .profile-panel {
+            flex: 1.5;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #e1e7ed;
+        }
+        h1 { 
+            color: #ffffff; 
+            margin: 0 0 10px 0; 
+            font-size: 28px; 
+            letter-spacing: -0.5px;
+            border-bottom: 2px solid #2a7b73;
+            padding-bottom: 10px;
+        }
+        .info { 
+            color: #a0aec0; 
+            font-size: 15px; 
+            margin-bottom: 25px; 
+            letter-spacing: 0.5px;
+        }
+        .story-box { 
+            background: rgba(0, 0, 0, 0.4); 
+            padding: 20px; 
+            border-radius: 8px; 
+            border-left: 4px solid #2a7b73;
+            margin-bottom: 25px;
+        }
+        .quote {
+            color: #93e1d8;
+            font-style: italic;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .description {
+            color: #cbd5e0;
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* 오디오 버튼 스타일 업그레이드 */
+        .bgm-btn { 
+            align-self: flex-start;
+            padding: 12px 26px; 
+            background: #2a7b73; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(42, 123, 115, 0.4);
+        }
+        .bgm-btn:hover { 
+            background: #1d5751; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 123, 115, 0.6);
+        }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <img class="oc-img" src="/Jin_k_middle_shot._A_highly_detailed_sharp_close-up_portrait__d6cd11d6-0f8e-4ff8-863d-f1e4aa63f54e_2.png" alt="아사히나 소우">
+    <div class="wrapper">
+        <!-- 왼쪽: 이미지 (../ 를 붙여서 상위 폴더의 이미지를 정확히 조준) -->
+        <div class="photo-panel">
+            <img class="oc-img" src="../Jin_k_middle_shot._A_highly_detailed_sharp_close-up_portrait__d6cd11d6-0f8e-4ff8-863d-f1e4aa63f54e_2.png" alt="아사히나 소우">
+        </div>
         
-        <h1>아사히나 소우 (朝比奈 蒼)</h1>
-        <div class="info">나이: 29세 | 성별: 남성 | 키: 186cm</div>
-        
-        <p class="story">
-            "첩의 자리도 나쁘지 않잖아. 당신의 그 맑고 투명한 영혼을 진흙탕에 섞지 않기 위해 내 은밀한 울타리 안에 가두려는 것뿐이니까. 그러니까 내 안방에서 숨만 쉬어."
-            <br><br>
-            1930년대 나고야 하세가와구미의 칸죠가타(금융·기획) 간부이자 '냉혹한 인간 계산기'. 은테 안경 너머 시리도록 차가운 옥록색 눈동자를 지녔다.
-        </p>
+        <!-- 오른쪽: 프로필 서사 -->
+        <div class="profile-panel">
+            <h1>아사히나 소우 (朝比奈 蒼)</h1>
+            <div class="info">29세 / 남성 / 186cm / 하세가와구미 간부</div>
+            
+            <div class="story-box">
+                <p class="quote">
+                    "첩의 자리도 나쁘지 않잖아. 당신의 그 맑고 투명한 영혼을 진흙탕에 섞지 않기 위해 내 은밀한 울타리 안에 가두려는 것뿐이니까. 그러니까 내 안방에서 숨만 쉬어."
+                </p>
+                <p class="description">
+                    1930년대 나고야 하세가와구미의 칸죠가타(금융·기획) 간부이자 '냉혹한 인간 계산기'. 은테 안경 너머 시리도록 차가운 옥록색 눈동자를 지녔다. 모든 관계를 숫자로 환산하는 자당착적 순애를 태우며, 완벽한 포커페이스 뒤에 지독한 소유욕과 부재에 대한 생리적 집착을 감춘 남자.
+                </p>
+            </div>
 
-        <audio id="ocBgm" src="/「夜に溶ける (밤에 녹아내리는)」.mp3" loop></audio>
-        <button class="bgm-btn" onclick="toggleBgm()">🎵 BGM 재생 / 일시정지</button>
+            <!-- BGM (../ 를 붙여서 상위 폴더의 음악을 정확히 조준) -->
+            <audio id="ocBgm" src="../「夜に溶ける (밤에 녹아내리는)」.mp3" loop></audio>
+            <button class="bgm-btn" onclick="toggleBgm()">🎵 BGM 재생 / 일시정지</button>
+        </div>
     </div>
 
     <script>
