@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아사히나 소우 (朝比奈 蒼)</title>
     <style>
-        /* 📜 [1930s Noir & Ledger Base] */
+        /* 📰 [1930s 활판 신문 및 아카이브 양식] */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            background: #07080a; 
-            color: #b2c0cc; 
-            font-family: 'Malgun Gothic', sans-serif; 
+            background-color: #f3efe6; /* 그 시절 바래진 신문 종이 질감 */
+            color: #1c1c1c; /* 활판 인쇄 특유의 짙은 먹색 */
+            font-family: 'ChosunMyeongjo', 'Batang', 'Georgia', serif; 
             height: 100vh; 
             display: flex; 
             overflow: hidden; 
             position: relative;
         }
 
-        /* 🌧️ 배경 비 효과 (1930년대 필름 그레인 느낌의 투명도 조절) */
+        /* 🌧️ 신문 인쇄면에 흐르는 듯한 먹색 빗줄기 연출 */
         #rainCanvas {
             position: fixed;
             top: 0;
@@ -26,228 +26,187 @@
             height: 100vh;
             z-index: 10;
             pointer-events: none;
-            opacity: 0.22;
+            opacity: 0.14; /* 본문 가독성을 해치지 않는 선에서 아날로그 비 연출 */
         }
 
-        /* 📁 [좌측] 아날로그 정보부 바인더 스타일 사이드바 */
+        /* 🌸 [요청사항 반영] 배경 곳곳에 은은하게 자리 잡은 하얀 안개꽃 포인트 그래픽 */
+        .flower-bg {
+            position: fixed;
+            width: 320px;
+            height: 320px;
+            pointer-events: none;
+            opacity: 0.55;
+            z-index: 1;
+            /* 고해상도 백색 안개꽃 실루엣 데이터 주입 */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g fill="%23ffffff" stroke="%23ebdccb" stroke-width="0.5"><circle cx="20" cy="30" r="2.5"/><circle cx="25" cy="25" r="2"/><circle cx="35" cy="20" r="1.5"/><circle cx="45" cy="22" r="2.5"/><circle cx="50" cy="35" r="2"/><circle cx="30" cy="40" r="1.5"/><circle cx="60" cy="45" r="2.5"/><circle cx="65" cy="30" r="2"/><circle cx="75" cy="25" r="1.5"/><circle cx="70" cy="15" r="2"/><circle cx="80" cy="40" r="2.5"/><circle cx="55" cy="55" r="1.5"/><path d="M20,30 Q30,50 55,75 M25,25 Q35,40 55,75 M45,22 Q45,45 55,75 M65,30 Q60,55 55,75 M75,25 Q65,50 55,75 M55,55 Q55,65 55,75 M55,75 L55,95" fill="none" stroke="%23cbd5e0" stroke-width="0.4"/></g></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .flower-top-right { top: -20px; right: -20px; transform: scaleX(-1); }
+        .flower-bottom-left { bottom: -40px; left: 240px; opacity: 0.4; }
+
+        /* [좌측] 신문 색인 형태의 무거운 사이드바 */
         .sidebar { 
             width: 340px; 
-            background: #0c0e12; 
-            border-right: 2px double rgba(42, 123, 115, 0.35); 
+            background: #eaddca; /* 신문철 바인더 느낌의 묵직한 베이지 */
+            border-right: 3px double #1c1c1c; 
             display: flex; 
             flex-direction: column; 
             padding: 40px 25px; 
             justify-content: space-between; 
             flex-shrink: 0;
-            z-index: 2;
+            z-index: 11;
         }
-        .oc-summary { text-align: center; position: relative; }
-        
-        /* 기밀 문서 낙인 스탬프 (秘) */
-        .secret-stamp {
-            position: absolute;
-            top: -10px;
-            right: 10px;
-            border: 2px solid #b83232;
-            color: #b83232;
-            font-family: 'Georgia', serif;
-            font-size: 14px;
-            font-weight: bold;
-            padding: 3px 6px;
-            border-radius: 3px;
-            transform: rotate(15deg);
-            letter-spacing: 1px;
-            opacity: 0.85;
-            pointer-events: none;
-        }
-
+        .oc-summary { text-align: center; border-bottom: 1px solid #1c1c1c; padding-bottom: 25px; }
         .oc-portrait { 
             width: 100%; 
             height: 260px; 
             object-fit: cover; 
-            border-radius: 4px; 
-            border: 1px solid rgba(42, 123, 115, 0.4); 
-            margin-bottom: 20px; 
-            filter: grayscale(15%) contrast(105%); /* 그 시절 사진 특유의 무거운 대비 */
-            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+            border-radius: 2px; 
+            border: 2px solid #1c1c1c; 
+            margin-bottom: 18px; 
+            filter: grayscale(100%) contrast(110%); /* 완벽한 그 시절 신문 흑판 사진 연출 */
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
         }
-        
-        /* 1930년대 활자체 느낌의 서체 조율 */
-        .oc-title h1 { 
-            color: #ffffff; 
-            font-size: 24px; 
-            font-family: 'Georgia', 'Malgun Gothic', serif;
-            font-weight: bold;
-            margin-bottom: 6px; 
-            letter-spacing: 1px; 
-        }
-        .oc-title p { color: #2a7b73; font-size: 11px; font-weight: bold; letter-spacing: 3px; }
+        .oc-title h1 { color: #1c1c1c; font-size: 25px; font-family: 'Batang', serif; font-weight: bold; }
+        .oc-title p { color: #555555; font-size: 13px; font-weight: bold; letter-spacing: 2px; margin-top: 4px; }
 
-        /* 장부 색인 탭 모양 버튼 */
-        .nav-menu { margin-top: 35px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
+        /* 신문 호외 스타일 메뉴 버튼 */
+        .nav-menu { margin-top: 35px; display: flex; flex-direction: column; gap: 4px; flex-grow: 1; }
         .nav-btn { 
-            background: none; border: none; color: #5f6e7d; text-align: left; 
-            padding: 14px 20px; font-size: 13px; font-weight: bold; cursor: pointer; 
-            border-radius: 2px; transition: all 0.2s ease; letter-spacing: 2px;
-            font-family: 'Georgia', serif;
-            border-left: 2px solid transparent;
+            background: none; border: none; color: #444444; text-align: left; 
+            padding: 14px 15px; font-size: 14px; font-weight: bold; cursor: pointer; 
+            border-bottom: 1px dashed rgba(28, 28, 28, 0.3);
+            font-family: 'Batang', serif;
+            transition: all 0.15s ease;
         }
         .nav-btn:hover, .nav-btn.active { 
-            background: rgba(42, 123, 115, 0.07); color: #93e1d8; border-left: 3px solid #2a7b73; 
+            background: rgba(28, 28, 28, 0.05); color: #000000; border-left: 5px solid #1c1c1c; padding-left: 10px;
         }
 
-        /* 오디오 플레이어 상자 (축음기 감성 수정) */
-        .audio-box { background: #111318; padding: 16px; border-radius: 4px; border: 1px solid rgba(42,123,115,0.15); margin-top: 15px;}
-        .audio-title { font-size: 11px; color: #5f6e7d; margin-bottom: 10px; font-family: sans-serif; letter-spacing: 0.5px; }
+        /* 음악 플레이어 구역 */
+        .audio-box { background: rgba(28, 28, 28, 0.03); padding: 15px; border: 1px solid #1c1c1c; margin-top: 15px;}
+        .audio-title { font-size: 11px; color: #555555; margin-bottom: 8px; font-weight: bold; }
         .bgm-btn { 
-            width: 100%; padding: 11px; background: transparent; color: #2a7b73; border: 1px solid #2a7b73; 
-            border-radius: 3px; font-weight: bold; cursor: pointer; font-size: 12px; transition: 0.2s; 
-            letter-spacing: 1px;
+            width: 100%; padding: 10px; background: #1c1c1c; color: #f3efe6; border: none; 
+            border-radius: 0; font-weight: bold; cursor: pointer; font-size: 12px; font-family: 'Batang', serif;
         }
-        .bgm-btn:hover { background: rgba(42, 123, 115, 0.15); color: #93e1d8; }
+        .bgm-btn:hover { background: #444444; }
 
-        /* [우측] 문서 메인 영역 (PC) */
+        /* [우측] 신문 지면 메인 영역 */
         .main-content { 
-            flex: 1; padding: 60px 65px; overflow-y: auto; 
-            background: linear-gradient(135deg, #0f1115 0%, #060709 100%);
-            position: relative;
-            z-index: 1;
+            flex: 1; padding: 55px 70px; overflow-y: auto; 
+            background-color: #fdfaf3; /* 조금 더 밝은 리얼 인쇄용지 규격 */
+            z-index: 2;
         }
         
         /* 탭 전환 효과 */
-        .tab-content { display: none; animation: documentSlide 0.4s cubic-bezier(0.1, 0.8, 0.2, 1) forwards; }
+        .tab-content { display: none; }
         .tab-content.active { display: block; }
-        @keyframes documentSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 1930년대 공문서 스타일 서체 제목 */
+        /* 신문 표제 스타일 타이틀 */
         h2 { 
-            color: #ffffff; 
-            font-size: 26px; 
-            font-family: 'Georgia', '궁서', serif; 
-            margin-bottom: 30px; 
-            border-bottom: 2px solid rgba(42,123,115,0.3); 
-            padding-bottom: 14px; 
-            letter-spacing: 1px;
+            color: #1c1c1c; font-size: 28px; font-family: 'Gungsuh', 'Batang', serif; text-align: center;
+            margin-bottom: 30px; border-bottom: 4px double #1c1c1c; border-top: 1px solid #1c1c1c;
+            padding: 12px 0; letter-spacing: 2px;
         }
         h3 { 
-            color: #93e1d8; 
-            font-size: 15px; 
-            font-family: 'Georgia', serif;
-            margin: 45px 0 18px 0; 
-            border-left: 3px solid #2a7b73; 
-            padding-left: 12px; 
-            letter-spacing: 1px;
+            color: #1c1c1c; font-size: 16px; font-family: 'Batang', serif; font-weight: bold;
+            margin: 40px 0 15px 0; border-left: 4px solid #1c1c1c; padding-left: 12px; 
         }
-        
-        /* 인용구 (친필 메모 연출) */
         .quote-block { 
-            font-size: 15px; 
-            color: #93e1d8; 
-            font-style: italic; 
-            line-height: 1.9; 
-            margin-bottom: 35px; 
-            padding: 20px; 
-            background: rgba(15, 18, 22, 0.7);
-            border-left: 4px solid #2a7b73; 
-            border-radius: 0 4px 4px 0;
+            font-size: 15px; color: #222222; font-style: italic; line-height: 1.9; 
+            margin-bottom: 35px; padding: 22px; background: #f7f4eb; border: 1px solid #1c1c1c;
         }
         
-        /* 비밀 정보부 격자 장부형 그리드 구조 */
-        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(42, 123, 115, 0.15); border: 1px solid rgba(42, 123, 115, 0.25); margin-bottom: 30px; }
-        .info-item { background: #0c0e12; padding: 18px 20px; }
-        .info-label { font-size: 11px; color: #4e5e6a; margin-bottom: 7px; font-weight: bold; letter-spacing: 1.5px; font-family: 'Georgia', serif; }
-        .info-value { font-size: 14px; color: #d1dbe3; line-height: 1.6; }
-        .info-vertical { display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px; }
+        /* 활판 신문 칼럼 격자 양식 */
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: #1c1c1c; border: 1px solid #1c1c1c; margin-bottom: 25px; }
+        .info-item { background: #fdfaf3; padding: 18px 20px; }
+        .info-label { font-size: 11px; color: #555555; margin-bottom: 6px; font-weight: bold; letter-spacing: 1px; }
+        .info-value { font-size: 14px; color: #1c1c1c; line-height: 1.6; }
+        .info-vertical { display: flex; flex-direction: column; gap: 14px; margin-bottom: 25px; }
         
-        /* 장부 분석표 수치 강조 스타일 (고능 연출) */
-        .data-value { font-family: 'Courier New', monospace; font-size: 16px; color: #93e1d8; font-weight: bold; }
-
-        /* 서사 본문 */
-        .desc-text { line-height: 1.9; font-size: 14px; color: #9bb0c1; text-align: justify; margin-bottom: 15px; }
+        /* 본문 텍스트 연출 */
+        .desc-text { line-height: 1.9; font-size: 14px; color: #222222; text-align: justify; margin-bottom: 15px; }
         .bullet-list { list-style: none; margin-top: 5px; }
-        .bullet-list li { position: relative; padding-left: 18px; margin-bottom: 10px; font-size: 14px; color: #cbd5e0; line-height: 1.7; }
-        .bullet-list li::before { content: "―"; color: #2a7b73; position: absolute; left: 0; font-weight: bold; }
+        .bullet-list li { position: relative; padding-left: 18px; margin-bottom: 10px; font-size: 14px; color: #1c1c1c; line-height: 1.7; }
+        .bullet-list li::before { content: "ㅡ"; color: #1c1c1c; position: absolute; left: 0; font-weight: bold; }
 
-        /* 하세가와구미 구역 */
-        .org-card { background: rgba(12, 14, 18, 0.85); padding: 30px; border-radius: 4px; border: 1px solid rgba(42, 123, 115, 0.2); margin-bottom: 30px; position: relative; }
-        .org-title { margin-bottom: 25px; display: flex; align-items: baseline; gap: 14px; }
-        .org-title-hanja { font-size: 42px; font-weight: bold; color: #ffffff; letter-spacing: 4px; font-family: '궁서', serif; }
-        .org-title-ko { font-size: 18px; color: #5f6e7d; }
+        /* 조직 정보 카드 */
+        .org-card { background: #fdfaf3; padding: 25px; border: 1px solid #1c1c1c; margin-bottom: 25px; }
+        .org-title { margin-bottom: 25px; display: flex; align-items: baseline; gap: 12px; border-bottom: 1px dashed #1c1c1c; padding-bottom: 10px; }
+        .org-title-hanja { font-size: 36px; font-weight: bold; color: #1c1c1c; letter-spacing: 2px; font-family: 'Gungsuh', serif; }
+        .org-title-ko { font-size: 16px; color: #444444; }
         
-        /* 대시보드 구조 */
-        .org-dashboard { display: flex; gap: 25px; margin-bottom: 25px; }
+        .org-dashboard { display: flex; gap: 20px; margin-bottom: 25px; }
         .org-logo-box { 
-            width: 220px; height: 220px; background: #07080a; 
-            border-radius: 4px; border: 1px solid rgba(42, 123, 115, 0.3); 
-            overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; 
+            width: 200px; height: 200px; background: #ffffff; 
+            border: 1px solid #1c1c1c; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; 
         }
-        .org-symbol-img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(30%) brightness(90%); }
-        .org-meta-box { flex: 1; display: flex; flex-direction: column; gap: 1px; background: rgba(42, 123, 115, 0.15); border: 1px solid rgba(42, 123, 115, 0.2); }
+        .org-symbol-img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(100%) contrast(120%); }
+        .org-meta-box { flex: 1; display: flex; flex-direction: column; gap: 1px; background: #1c1c1c; border: 1px solid #1c1c1c; }
 
-        /* 관계도 격자 구조 */
-        .relation-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 15px; }
-        .relation-card { display: flex; flex-direction: column; background: #0c0e12; padding: 25px; border-radius: 4px; border: 1px solid rgba(42, 123, 115, 0.2); }
+        /* 관계도 신문 인쇄 스크랩 형태 레이아웃 */
+        .relation-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 15px; }
+        .relation-card { display: flex; flex-direction: column; background: #fdfaf3; padding: 22px; border: 1px solid #1c1c1c; }
         .relation-img { 
-            width: 100%; 
-            height: auto; 
-            object-fit: contain; 
-            border-radius: 2px; 
-            border: 1px solid rgba(42, 123, 115, 0.3); 
-            margin-bottom: 20px; 
-            background: #07080a; 
-            filter: grayscale(20%);
+            width: 100%; height: auto; object-fit: contain; 
+            border: 1px solid #1c1c1c; margin-bottom: 18px; background: #ffffff; 
+            filter: grayscale(100%) contrast(115%);
         }
 
-        /* 📑 잔화비도 전국 지부 가로 병렬 무거운 장부 양식 */
+        /* 📑 전국 지부 연합 신문 광고 대시보드식 격자 양식 */
         .branch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 15px; }
-        .branch-card { display: flex; flex-direction: column; background: #0c0e12; padding: 22px; border-radius: 4px; border: 1px solid rgba(42, 123, 115, 0.15); justify-content: space-between; }
-        .branch-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid rgba(42,123,115,0.25); padding-bottom: 10px; }
-        .branch-region { font-size: 15px; font-weight: bold; color: #ffffff; font-family: 'Georgia', serif; }
-        .branch-name { font-size: 15px; color: #93e1d8; font-weight: bold; font-family: '궁서', serif; }
+        .branch-card { display: flex; flex-direction: column; background: #fdfaf3; padding: 22px; border: 1px solid #1c1c1c; justify-content: space-between; }
+        .branch-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 2px solid #1c1c1c; padding-bottom: 8px; }
+        .branch-region { font-size: 15px; font-weight: bold; color: #1c1c1c; }
+        .branch-name { font-size: 16px; color: #1c1c1c; font-weight: bold; font-family: 'Gungsuh', serif; }
         
-        .branch-meta-vertical { display: flex; flex-direction: column; gap: 1px; background: rgba(42, 123, 115, 0.1); border: 1px solid rgba(42,123,115,0.15); margin-bottom: 16px; }
-        .branch-roster { display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px dashed rgba(42,123,115,0.2); padding-top: 14px; }
-        .roster-badge { background: rgba(7, 8, 10, 0.8); border: 1px solid rgba(42, 123, 115, 0.25); padding: 5px 10px; border-radius: 2px; display: flex; gap: 8px; align-items: center; }
-        .badge-job { font-size: 11px; color: #2a7b73; font-weight: bold; font-family: 'Georgia', serif; }
-        .badge-name { font-size: 13px; color: #cbd5e0; }
+        .branch-meta-vertical { display: flex; flex-direction: column; gap: 1px; background: #1c1c1c; border: 1px solid #1c1c1c; margin-bottom: 16px; }
+        .branch-roster { display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px dashed #1c1c1c; padding-top: 14px; }
+        .roster-badge { background: #ffffff; border: 1px solid #1c1c1c; padding: 5px 10px; display: flex; gap: 8px; align-items: center; }
+        .badge-job { font-size: 11px; color: #000000; font-weight: bold; }
+        .badge-name { font-size: 13px; color: #1c1c1c; }
 
-        /* 📱 [모바일 최적화 레이아웃 - 완전히 단정한 세로 정렬 가동] */
+        /* 📱 [모바일 호환 전용 최적화 레이아웃] */
         @media (max-width: 768px) {
             body { flex-direction: column; overflow-y: auto; height: auto; }
             
             .sidebar { 
-                width: 100%; height: auto; padding: 30px 20px; 
-                border-right: none; border-bottom: 2px double rgba(42, 123, 115, 0.3); 
+                width: 100%; height: auto; padding: 25px 20px; 
+                border-right: none; border-bottom: 3px double #1c1c1c; 
             }
-            .oc-summary { display: flex; align-items: center; text-align: left; gap: 20px; }
-            .oc-portrait { width: 80px; height: 80px; border-radius: 4px; margin-bottom: 0; box-shadow: none; }
-            .oc-title h1 { font-size: 20px; }
-            .secret-stamp { top: -5px; right: 5px; font-size: 11px; }
-
-            .nav-menu { flex-direction: column; gap: 6px; margin-top: 25px; width: 100%; }
-            .nav-btn { width: 100%; padding: 12px 16px; font-size: 13px; border-left: 3px solid transparent; }
-            .nav-btn:hover, .nav-btn.active { border-left: 3px solid #2a7b73; }
+            .oc-summary { display: flex; align-items: center; text-align: left; gap: 15px; border-bottom: none; padding-bottom: 0; }
+            .oc-portrait { width: 80px; height: 80px; border-radius: 0; margin-bottom: 0; box-shadow: none; }
+            .oc-title h1 { font-size: 19px; }
             
-            .main-content { padding: 40px 20px; overflow-y: visible; }
+            .nav-menu { flex-direction: column; gap: 6px; margin-top: 20px; width: 100%; }
+            .nav-btn { width: 100%; padding: 12px 16px; font-size: 13px; text-align: left; border-left: 4px solid transparent; }
+            .nav-btn:hover, .nav-btn.active { border-left: 4px solid #1c1c1c; }
+            
+            .main-content { padding: 35px 20px; overflow-y: visible; }
             .info-grid, .relation-grid, .branch-grid, .org-meta-box { grid-template-columns: 1fr; gap: 0; }
-            .info-item { border-bottom: 1px solid rgba(42, 123, 115, 0.15); }
+            .info-item { border-bottom: 1px solid #1c1c1c; }
             
-            .org-dashboard { flex-direction: column; align-items: center; gap: 20px; }
-            .org-logo-box { width: 100%; max-width: 220px; height: 220px; }
+            .org-dashboard { flex-direction: column; align-items: center; gap: 16px; }
+            .org-logo-box { width: 100%; max-width: 200px; height: 200px; }
             .branch-roster { flex-direction: column; align-items: stretch; }
+            .flower-bg { display: none; } /* 모바일 가독성을 위해 배경 꽃 제거 */
         }
     </style>
 </head>
 <body>
 
-    <!-- 🌧️ 배경 비 효과 무대 -->
+    <!-- 🌧️ 1930년대 감성의 인쇄지 위 먹색 비 스크립트 무대 -->
     <canvas id="rainCanvas"></canvas>
 
-    <!-- [좌측] 고정 사이드바 메뉴 (비밀 문서 바인더) -->
+    <!-- 🌸 배경 안개꽃 요소 주입 -->
+    <div class="flower-bg flower-top-right"></div>
+    <div class="flower-bg flower-bottom-left"></div>
+
+    <!-- [좌측] 고정 사이드바 메뉴 -->
     <div class="sidebar">
         <div class="oc-summary">
-            <!-- 고능 기밀 서류 낙인 도장 연출 -->
-            <div class="secret-stamp">最高機密</div>
             <img class="oc-portrait" src="../Jin_k_middle_shot._A_highly_detailed_sharp_close-up_portrait__d6cd11d6-0f8e-4ff8-863d-f1e4aa63f54e_2.png" alt="소우">
             <div class="oc-title">
                 <h1>아사히나 소우</h1>
@@ -268,7 +227,7 @@
         </div>
     </div>
 
-    <!-- [우측] 콘텐츠 메인 영역 (비밀 정보 조서) -->
+    <!-- [우측] 콘텐츠 메인 영역 -->
     <div class="main-content">
         
         <!-- 탭 1: 캐릭터 프로필 -->
@@ -291,15 +250,6 @@
                 <div class="info-item"><div class="info-label">頭髪・眼球 (머리와 눈)</div><div class="info-value">포마드로 정갈하게 넘긴 올백 블랙 헤어, 시리도록 차가운 옥록색 눈동자.</div></div>
                 <div class="info-item"><div class="info-label">衣類 (의복)</div><div class="info-value">1930년대식 서양식 3피스 슈트 위에 최고급 프리미엄 옥색 실크 하오리를 걸침. 은테 안경 착용.</div></div>
                 <div class="info-item" style="grid-column: span 1;"><div class="info-label">刺青・携帯品 (문신과 소지품)</div><div class="info-value">왼쪽 가슴(심장)부터 어깨·등까지 이어지는 흑백 파도 이레즈미. 검은 파도 라인 끝에 피어난 선명한 안개꽃 봉오리. 은빛 라이터와 궐련 소지.</div></div>
-            </div>
-
-            <!-- 📊 [고능 연출 신설] 금융 브레인 전용 자산 및 리스크 분석 장부 양식 -->
-            <h3>勘定方 査정報告 (자산 및 역량 분석 장부)</h3>
-            <div class="info-grid">
-                <div class="info-item"><div class="info-label">수식 산출 지능 (IQ)</div><div class="data-value">148 [상위 0.18% 측정 완료]</div></div>
-                <div class="info-item"><div class="info-label">자금 동원력 및 연동 규모</div><div class="data-value">나고야 광역권 유통 자산의 42% 직간접 통제</div></div>
-                <div class="info-item"><div class="info-label">상황 판단력 및 이성 지표</div><div class="data-value">극단적 냉정 [감정 수치 변동성 제로에 수렴]</div></div>
-                <div class="info-item"><div class="info-label">조직 내 위협 및 잔혹성 등급</div><div class="data-value">특A급 등급 [소음 및 규율 위반 시 예외 없이 처리]</div></div>
             </div>
 
             <h3>身上特徴 (개인 성향)</h3>
@@ -336,7 +286,7 @@
                     철저한 성과주의가 주는 은근한 긴장감이 흐른다. <br>
                     그러나 약속된 보상이 확실하기에 배신이 거의 없으며, 기묘할 정도로 정돈된 근대식 직제 시스템과 기존 야쿠자의 유구한 전통·의리가 공존하는 나고야의 거대 세력.
                 </p>
-                <p class="desc-text" style="color: #718096; font-size: 13px; margin-top: 10px;">
+                <p class="desc-text" style="color: #555555; font-size: 13px; margin-top: 10px;">
                     조직원들은 회장을 '샤쵸(社長, 사장님)' 혹은 '오야붕'이라 칭한다.
                 </p>
             </div>
@@ -344,24 +294,24 @@
             <h3>組内役職 (조직 내부 구조 및 간부 라인업)</h3>
             <div class="info-vertical">
                 
-                <div class="info-item" style="border-left: 4px solid #2a7b73;">
+                <div class="info-item" style="border-left: 5px solid #1c1c1c;">
                     <div class="info-label">勘定方 幹部 (금융, 기획조 간부)</div>
-                    <div class="info-value" style="font-weight: bold; font-size: 17px; color: #ffffff; margin-bottom: 5px;">아사히나 소우 (朝比奈 蒼)</div>
-                    <p style="font-size: 13px; color: #a0aec0;">하세가와구미의 전체적인 자금과 브레인 기획을 지휘하는 핵심 직제.</p>
+                    <div class="info-value" style="font-weight: bold; font-size: 16px; color: #000000; margin-bottom: 5px;">아사히나 소우 (朝比奈 蒼)</div>
+                    <p style="font-size: 13px; color: #333333;">하세가와구미의 전체적인 자금과 브레인 기획을 지휘하는 핵심 직제.</p>
                 </div>
                 
-                <div class="info-item" style="border-left: 4px solid #d69e2e;">
-                    <div class="info-label">波止場衆 幹部 (운송, 현장조 간부)</div>
-                    <div class="info-value" style="font-weight: bold; font-size: 17px; color: #ffffff; margin-bottom: 5px;">사카모토 텟페이 (坂本 鉄平)</div>
-                    <p style="font-size: 13px; color: #cbd5e0; margin-bottom: 4px;">스펙: 34세 / 188cm, 95kg / 전직 나고야 항만 하역 노동자 출신</p>
-                    <p style="font-size: 13px; color: #718096;">특징 : 완벽한 급여와 항만 통관 서류 덕에 내 가솔들이 먹고산다는 것을 알아서 충성. 타고난 통뼈와 괴력을 지녔다.</p>
+                <div class="info-item" style="border-left: 5px solid #1c1c1c;">
+                    <div class="info-label">波止場衆 幹부 (운송, 현장조 간부)</div>
+                    <div class="info-value" style="font-weight: bold; font-size: 16px; color: #000000; margin-bottom: 5px;">사카모토 텟페이 (坂本 鉄平)</div>
+                    <p style="font-size: 13px; color: #333333; margin-bottom: 4px;">스펙: 34세 / 188cm, 95kg / 전직 나고야 항만 하역 노동자 출신</p>
+                    <p style="font-size: 13px; color: #555555;">특징 : 완벽한 급여와 항만 통관 서류 덕에 내 가솔들이 먹고산다는 것을 알아서 충성. 타고난 통뼈와 괴력을 지녔다.</p>
                 </div>
 
-                <div class="info-item" style="border-left: 4px solid #e53e3e;">
+                <div class="info-item" style="border-left: 5px solid #1c1c1c;">
                     <div class="info-label">紅隊 幹部 (보안 집행조 간부)</div>
-                    <div class="info-value" style="font-weight: bold; font-size: 17px; color: #ffffff; margin-bottom: 5px;">키타노 렌 (北野 蓮)</div>
-                    <p style="font-size: 13px; color: #cbd5e0; margin-bottom: 4px;">스펙: 31세 / 182cm, 72kg / 하세가와구미의 정통 칼잡이</p>
-                    <p style="font-size: 13px; color: #718096;">특징 : 전통 검술(발도술)의 달인. 돈도, 권력도, 여자도 관심 없고 오직 '하세가와구미의 규율과 오야분의 안위'만을 위해 살아가는 기계 같은 인간. 전통과 명예를 중시한다.</p>
+                    <div class="info-value" style="font-weight: bold; font-size: 16px; color: #000000; margin-bottom: 5px;">키타노 렌 (北野 蓮)</div>
+                    <p style="font-size: 13px; color: #333333; margin-bottom: 4px;">스펙: 31세 / 182cm, 72kg / 하세가와구미의 정통 칼잡이</p>
+                    <p style="font-size: 13px; color: #555555;">특징 : 전통 검술(발도술)의 달인. 돈도, 권력도, 여자도 관심 없고 오직 '하세가와구미의 규율과 오야분의 안위'만을 위해 살아가는 기계 같은 인간. 전통과 명예를 중시한다.</p>
                 </div>
                 
             </div>
@@ -369,7 +319,7 @@
 
         <!-- 탭 3: 주변 인물 및 관계도 -->
         <div id="relations" class="tab-content">
-            <h2>相関系譜 (인물 관계보)</h2>
+            <h2>相관系譜 (인물 관계보)</h2>
             
             <div class="relation-grid">
                 <!-- 오야붕: 하세가와 에이지 -->
@@ -377,8 +327,8 @@
                     <img class="relation-img" src="../KakaoTalk_20260630_120048729_01.png" alt="하세가와 에이지">
                     <div class="relation-info">
                         <div class="info-label">組長 (오야붕)</div>
-                        <div class="info-value" style="font-size: 18px; color: #ffffff; font-weight: bold; margin-bottom: 6px;">하세가와 에이지 (長谷川 栄二)</div>
-                        <p style="font-size: 13px; color: #a0aec0; line-height: 1.6;">하세가와구미의 수장. 소우의 특출난 성과를 전폭 신뢰하며 조직의 거대한 금전 유통 및 기획 설계를 완전히 일임한 절대적인 위정자.</p>
+                        <div class="info-value" style="font-size: 17px; color: #000000; font-weight: bold; margin-bottom: 6px;">하세가와 에이지 (長谷川 栄二)</div>
+                        <p style="font-size: 13px; color: #333333; line-height: 1.6;">하세가와구미의 수장. 소우의 특출난 성과를 전폭 신뢰하며 조직의 거대한 금전 유통 및 기획 설계를 완전히 일임한 절대적인 위정자.</p>
                     </div>
                 </div>
 
@@ -387,14 +337,14 @@
                     <img class="relation-img" src="../KakaoTalk_20260630_102555150_02.png" alt="아사히나 소우">
                     <div class="relation-info">
                         <div class="info-label">勘定方 幹部 (칸죠가타 간부)</div>
-                        <div class="info-value" style="font-weight: bold; font-size: 18px; color: #ffffff; margin-bottom: 6px;">아사히나 소우 (朝比奈 蒼)</div>
-                        <p style="font-size: 13px; color: #a0aec0; line-height: 1.6;">오야붕 아래에서 조직의 자금 흐름을 완벽히 통제하는 인물. 직속 보좌인 켄지를 대동하여 잔혹하고 철저한 연쇄 테스트와 집행 업무를 은밀히 수용 및 수행한다.</p>
+                        <div class="info-value" style="font-weight: bold; font-size: 17px; color: #000000; margin-bottom: 6px;">아사히나 소우 (朝比奈 蒼)</div>
+                        <p style="font-size: 13px; color: #333333; line-height: 1.6;">오야붕 아래에서 조직의 자금 흐름을 완벽히 통제하는 인물. 직속 보좌인 켄지를 대동하여 잔혹하고 철저한 연쇄 테스트와 집행 업무를 은밀히 수용 및 수행한다.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- 잔화비도 연합 세력도 가로 병렬 그리드 -->
-            <h3 style="margin-top: 45px; border-color: #e53e3e; color: #f56565; font-size: 18px; letter-spacing: 1px;">殘花悲刀 (전국 광역 연합 계보)</h3>
+            <!-- 📑 전국 지부 연합 신문 지면 형태 가로 병렬 그리드 완벽 백업 -->
+            <h3>殘花悲刀 (전국 광역 연합 계보)</h3>
             <div class="branch-grid">
                 
                 <!-- 교토 지부 -->
@@ -434,7 +384,7 @@
                         <div class="roster-badge"><span class="badge-job">組長</span><span class="badge-name">세이겐지 료</span></div>
                         <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">카에데시로 아키라</span></div>
                         <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">사치하라 렌지</span></div>
-                        <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">오가사와라 슈지</span></div>
+                        <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">오가사와라 슈지</span></div>
                     </div>
                 </div>
 
@@ -448,13 +398,13 @@
                         <div class="branch-meta-vertical">
                             <div class="info-item"><div class="info-label">組織象徴</div><div class="info-value">까마귀</div></div>
                             <div class="info-item"><div class="info-label">内部風土</div><div class="info-value">신뢰와 의리를 중시하는 냉정한 조직</div></div>
-                            <div class="info-item"><div class="info-label">組織口号</div><div class="info-value">「義を違えず、影を違えず。」</div></div>
+                            <div class="info-item"><div class="info-label">組織口号</div><div class="info-value">「義를 위배하지 말고, 그림자를 위배하지 말라.」</div></div>
                         </div>
                     </div>
                     <div class="branch-roster">
                         <div class="roster-badge"><span class="badge-job">会長</span><span class="badge-name">타카야 노부마사</span></div>
                         <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">쿠죠 토오루</span></div>
-                        <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">사에토 유즈루</span></div>
+                        <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">사에토 유즈루</span></div>
                     </div>
                 </div>
 
@@ -491,9 +441,9 @@
                         </div>
                     </div>
                     <div class="branch-roster">
-                        <div class="roster-badge"><span class="badge-job">堂주</span><span class="badge-name">쿠제 리오</span></div>
+                        <div class="roster-badge"><span class="badge-job">堂主</span><span class="badge-name">쿠제 리오</span></div>
                         <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">시라누이 리츠</span></div>
-                        <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">키리시마 슈우</span></div>
+                        <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">키리시마 슈우</span></div>
                     </div>
                 </div>
 
@@ -502,7 +452,7 @@
 
     </div>
 
-    <!-- 스크립트 가동 -->
+    <!-- 스크립트 엔진 제어 -->
     <script>
         function openTab(evt, tabName) {
             var i, tabcontent, navbtn;
@@ -531,12 +481,12 @@
             var myAudio = document.getElementById("ocBgm");
             if (myAudio.paused) {
                 myAudio.play().catch(function(error) {
-                    console.log("자동재생 활성화:", error);
+                    console.log("자동재생 작동 트리거 활성화:", error);
                 });
             }
         }, { once: true });
 
-        // 🌧️ 비 효과 그래픽 스크립트
+        // 🌧️ 배경에 추적추적 내리는 빈티지 먹색 빗줄기 효과 (Canvas 루프)
         const canvas = document.getElementById('rainCanvas');
         const ctx = canvas.getContext('2d');
         
@@ -558,7 +508,7 @@
 
         function drawRain() {
             ctx.clearRect(0, 0, width, height);
-            ctx.strokeStyle = 'rgba(147, 225, 216, 0.28)'; 
+            ctx.strokeStyle = 'rgba(28, 28, 28, 0.14)'; /* 흑인쇄지와 완벽 동화되는 아날로그 빗줄기 색상 조율 */
             ctx.lineCap = 'round';
 
             for (let i = 0; i < maxDrops; i++) {
