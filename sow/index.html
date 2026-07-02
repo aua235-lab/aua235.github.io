@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아사히나 소우 (朝比奈 蒼)</title>
     <style>
-        /* 📰 [1930s 활판 신문 및 아카이브 양식] */
+        /* 🖤 [검은색 & 녹록색 기반 느와르 테마 베이스] */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            background-color: #f3efe6; /* 그 시절 바래진 신문 종이 질감 */
-            color: #1c1c1c; /* 활판 인쇄 특유의 짙은 먹색 */
-            font-family: 'ChosunMyeongjo', 'Batang', 'Georgia', serif; 
+            background: #090a0c; 
+            color: #cbd5e0; 
+            font-family: 'Malgun Gothic', sans-serif; 
             height: 100vh; 
             display: flex; 
             overflow: hidden; 
             position: relative;
         }
 
-        /* 🌧️ 신문 인쇄면에 흐르는 듯한 먹색 빗줄기 연출 */
+        /* 🌧️ 배경에 추적추적 내리는 녹록색 빛깔의 빗줄기 효과 */
         #rainCanvas {
             position: fixed;
             top: 0;
@@ -26,181 +26,190 @@
             height: 100vh;
             z-index: 10;
             pointer-events: none;
-            opacity: 0.14; /* 본문 가독성을 해치지 않는 선에서 아날로그 비 연출 */
+            opacity: 0.25;
         }
 
-        /* 🌸 [요청사항 반영] 배경 곳곳에 은은하게 자리 잡은 하얀 안개꽃 포인트 그래픽 */
+        /* 🌸 [요청사항 반영] 검은 배경에서 은은하게 피어오르는 하얀 안개꽃 그래픽 포인트 */
         .flower-bg {
             position: fixed;
             width: 320px;
             height: 320px;
             pointer-events: none;
-            opacity: 0.55;
+            opacity: 0.15; /* 어두운 느와르 감성을 해치지 않는 은근한 투명도 */
             z-index: 1;
-            /* 고해상도 백색 안개꽃 실루엣 데이터 주입 */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g fill="%23ffffff" stroke="%23ebdccb" stroke-width="0.5"><circle cx="20" cy="30" r="2.5"/><circle cx="25" cy="25" r="2"/><circle cx="35" cy="20" r="1.5"/><circle cx="45" cy="22" r="2.5"/><circle cx="50" cy="35" r="2"/><circle cx="30" cy="40" r="1.5"/><circle cx="60" cy="45" r="2.5"/><circle cx="65" cy="30" r="2"/><circle cx="75" cy="25" r="1.5"/><circle cx="70" cy="15" r="2"/><circle cx="80" cy="40" r="2.5"/><circle cx="55" cy="55" r="1.5"/><path d="M20,30 Q30,50 55,75 M25,25 Q35,40 55,75 M45,22 Q45,45 55,75 M65,30 Q60,55 55,75 M75,25 Q65,50 55,75 M55,55 Q55,65 55,75 M55,75 L55,95" fill="none" stroke="%23cbd5e0" stroke-width="0.4"/></g></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g fill="%23ffffff" stroke="%2393e1d8" stroke-width="0.3"><circle cx="20" cy="30" r="2.5"/><circle cx="25" cy="25" r="2"/><circle cx="35" cy="20" r="1.5"/><circle cx="45" cy="22" r="2.5"/><circle cx="50" cy="35" r="2"/><circle cx="30" cy="40" r="1.5"/><circle cx="60" cy="45" r="2.5"/><circle cx="65" cy="30" r="2"/><circle cx="75" cy="25" r="1.5"/><circle cx="70" cy="15" r="2"/><circle cx="80" cy="40" r="2.5"/><circle cx="55" cy="55" r="1.5"/><path d="M20,30 Q30,50 55,75 M25,25 Q35,40 55,75 M45,22 Q45,45 55,75 M65,30 Q60,55 55,75 M75,25 Q65,50 55,75 M55,55 Q55,65 55,75 M55,75 L55,95" fill="none" stroke="%232a7b73" stroke-width="0.4"/></g></svg>');
             background-size: contain;
             background-repeat: no-repeat;
         }
-        .flower-top-right { top: -20px; right: -20px; transform: scaleX(-1); }
-        .flower-bottom-left { bottom: -40px; left: 240px; opacity: 0.4; }
+        .flower-top-right { top: -10px; right: -10px; transform: scaleX(-1); }
+        .flower-bottom-left { bottom: -30px; left: 350px; opacity: 0.08; }
 
-        /* [좌측] 신문 색인 형태의 무거운 사이드바 */
+        /* [좌측] 고정 사이드바 */
         .sidebar { 
             width: 340px; 
-            background: #eaddca; /* 신문철 바인더 느낌의 묵직한 베이지 */
-            border-right: 3px double #1c1c1c; 
+            background: #0f1114; 
+            border-right: 1px solid rgba(42, 123, 115, 0.25); 
             display: flex; 
             flex-direction: column; 
-            padding: 40px 25px; 
+            padding: 35px 25px; 
             justify-content: space-between; 
             flex-shrink: 0;
             z-index: 11;
         }
-        .oc-summary { text-align: center; border-bottom: 1px solid #1c1c1c; padding-bottom: 25px; }
+        .oc-summary { text-align: center; }
         .oc-portrait { 
             width: 100%; 
             height: 260px; 
             object-fit: cover; 
-            border-radius: 2px; 
-            border: 2px solid #1c1c1c; 
+            border-radius: 6px; 
+            border: 1px solid rgba(42, 123, 115, 0.3); 
             margin-bottom: 18px; 
-            filter: grayscale(100%) contrast(110%); /* 완벽한 그 시절 신문 흑판 사진 연출 */
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-        .oc-title h1 { color: #1c1c1c; font-size: 25px; font-family: 'Batang', serif; font-weight: bold; }
-        .oc-title p { color: #555555; font-size: 13px; font-weight: bold; letter-spacing: 2px; margin-top: 4px; }
+        .oc-title h1 { color: #ffffff; font-size: 22px; margin-bottom: 4px; letter-spacing: -0.5px; }
+        .oc-title p { color: #2a7b73; font-size: 11px; font-weight: bold; letter-spacing: 2px; }
 
-        /* 신문 호외 스타일 메뉴 버튼 */
-        .nav-menu { margin-top: 35px; display: flex; flex-direction: column; gap: 4px; flex-grow: 1; }
+        /* 메뉴 네비게이션 버튼 */
+        .nav-menu { margin-top: 30px; display: flex; flex-direction: column; gap: 6px; flex-grow: 1; }
         .nav-btn { 
-            background: none; border: none; color: #444444; text-align: left; 
-            padding: 14px 15px; font-size: 14px; font-weight: bold; cursor: pointer; 
-            border-bottom: 1px dashed rgba(28, 28, 28, 0.3);
-            font-family: 'Batang', serif;
-            transition: all 0.15s ease;
+            background: none; border: none; color: #718096; text-align: left; 
+            padding: 14px 18px; font-size: 14px; font-weight: bold; cursor: pointer; 
+            border-radius: 4px; transition: all 0.25s ease; letter-spacing: 1px; 
         }
         .nav-btn:hover, .nav-btn.active { 
-            background: rgba(28, 28, 28, 0.05); color: #000000; border-left: 5px solid #1c1c1c; padding-left: 10px;
+            background: rgba(42, 123, 115, 0.1); color: #93e1d8; border-left: 4px solid #2a7b73; 
         }
 
-        /* 음악 플레이어 구역 */
-        .audio-box { background: rgba(28, 28, 28, 0.03); padding: 15px; border: 1px solid #1c1c1c; margin-top: 15px;}
-        .audio-title { font-size: 11px; color: #555555; margin-bottom: 8px; font-weight: bold; }
+        /* 오디오 플레이어 상자 */
+        .audio-box { background: #14171a; padding: 15px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.02); margin-top: 15px;}
+        .audio-title { font-size: 11px; color: #718096; margin-bottom: 8px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
         .bgm-btn { 
-            width: 100%; padding: 10px; background: #1c1c1c; color: #f3efe6; border: none; 
-            border-radius: 0; font-weight: bold; cursor: pointer; font-size: 12px; font-family: 'Batang', serif;
+            width: 100%; padding: 10px; background: #2a7b73; color: white; border: none; 
+            border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; transition: 0.2s; 
+            box-shadow: 0 4px 10px rgba(42, 123, 115, 0.2);
         }
-        .bgm-btn:hover { background: #444444; }
+        .bgm-btn:hover { background: #1d5751; }
 
-        /* [우측] 신문 지면 메인 영역 */
+        /* [우측] 콘텐츠 메인 영역 */
         .main-content { 
-            flex: 1; padding: 55px 70px; overflow-y: auto; 
-            background-color: #fdfaf3; /* 조금 더 밝은 리얼 인쇄용지 규격 */
+            flex: 1; padding: 55px 60px; overflow-y: auto; 
+            background: radial-gradient(circle at 80% 20%, #13171b 0%, #090a0c 100%); 
             z-index: 2;
         }
         
         /* 탭 전환 효과 */
-        .tab-content { display: none; }
+        .tab-content { display: none; animation: fadeIn 0.35s ease forwards; }
         .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 신문 표제 스타일 타이틀 */
-        h2 { 
-            color: #1c1c1c; font-size: 28px; font-family: 'Gungsuh', 'Batang', serif; text-align: center;
-            margin-bottom: 30px; border-bottom: 4px double #1c1c1c; border-top: 1px solid #1c1c1c;
-            padding: 12px 0; letter-spacing: 2px;
-        }
-        h3 { 
-            color: #1c1c1c; font-size: 16px; font-family: 'Batang', serif; font-weight: bold;
-            margin: 40px 0 15px 0; border-left: 4px solid #1c1c1c; padding-left: 12px; 
-        }
-        .quote-block { 
-            font-size: 15px; color: #222222; font-style: italic; line-height: 1.9; 
-            margin-bottom: 35px; padding: 22px; background: #f7f4eb; border: 1px solid #1c1c1c;
-        }
+        /* 타이틀 및 폰트 세팅 */
+        h2 { color: #ffffff; font-size: 24px; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 12px; font-weight: 600; letter-spacing: -0.5px; }
+        h3 { color: #93e1d8; font-size: 16px; margin: 35px 0 15px 0; border-left: 3px solid #2a7b73; padding-left: 10px; }
+        .quote-block { font-size: 15px; color: #93e1d8; font-style: italic; line-height: 1.8; margin-bottom: 30px; padding-left: 20px; border-left: 4px solid #2a7b73; }
         
-        /* 활판 신문 칼럼 격자 양식 */
-        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: #1c1c1c; border: 1px solid #1c1c1c; margin-bottom: 25px; }
-        .info-item { background: #fdfaf3; padding: 18px 20px; }
-        .info-label { font-size: 11px; color: #555555; margin-bottom: 6px; font-weight: bold; letter-spacing: 1px; }
-        .info-value { font-size: 14px; color: #1c1c1c; line-height: 1.6; }
-        .info-vertical { display: flex; flex-direction: column; gap: 14px; margin-bottom: 25px; }
+        /* 기본 격자형 프로필 그리드 */
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 25px; }
+        .info-item { background: rgba(20, 24, 28, 0.5); padding: 15px 18px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.02); }
+        .info-label { font-size: 11px; color: #4a5568; margin-bottom: 5px; font-weight: bold; letter-spacing: 0.5px; }
+        .info-value { font-size: 14px; color: #e2e8f0; line-height: 1.5; }
+        .info-vertical { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
         
-        /* 본문 텍스트 연출 */
-        .desc-text { line-height: 1.9; font-size: 14px; color: #222222; text-align: justify; margin-bottom: 15px; }
+        /* 서사 텍스트 구조 */
+        .desc-text { line-height: 1.8; font-size: 14px; color: #a0aec0; text-align: justify; margin-bottom: 15px; }
         .bullet-list { list-style: none; margin-top: 5px; }
-        .bullet-list li { position: relative; padding-left: 18px; margin-bottom: 10px; font-size: 14px; color: #1c1c1c; line-height: 1.7; }
-        .bullet-list li::before { content: "ㅡ"; color: #1c1c1c; position: absolute; left: 0; font-weight: bold; }
+        .bullet-list li { position: relative; padding-left: 15px; margin-bottom: 8px; font-size: 14px; color: #cbd5e0; line-height: 1.6; }
+        .bullet-list li::before { content: "•"; color: #2a7b73; position: absolute; left: 0; font-weight: bold; }
 
-        /* 조직 정보 카드 */
-        .org-card { background: #fdfaf3; padding: 25px; border: 1px solid #1c1c1c; margin-bottom: 25px; }
-        .org-title { margin-bottom: 25px; display: flex; align-items: baseline; gap: 12px; border-bottom: 1px dashed #1c1c1c; padding-bottom: 10px; }
-        .org-title-hanja { font-size: 36px; font-weight: bold; color: #1c1c1c; letter-spacing: 2px; font-family: 'Gungsuh', serif; }
-        .org-title-ko { font-size: 16px; color: #444444; }
+        /* 하세가와구미 타이틀 */
+        .org-card { background: rgba(17, 20, 24, 0.7); padding: 25px; border-radius: 8px; border: 1px solid rgba(42, 123, 115, 0.15); margin-bottom: 25px; }
+        .org-title { margin-bottom: 25px; display: flex; align-items: baseline; gap: 12px; }
+        .org-title-hanja { font-size: 38px; font-weight: bold; color: #ffffff; letter-spacing: 2px; }
+        .org-title-ko { font-size: 18px; color: #a0aec0; font-weight: normal; }
         
+        /* 로고 구역 */
         .org-dashboard { display: flex; gap: 20px; margin-bottom: 25px; }
         .org-logo-box { 
-            width: 200px; height: 200px; background: #ffffff; 
-            border: 1px solid #1c1c1c; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; 
+            width: 220px; height: 220px; background: rgba(9, 10, 12, 0.6); 
+            border-radius: 6px; border: 1px solid rgba(42, 123, 115, 0.25); 
+            overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; 
         }
-        .org-symbol-img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(100%) contrast(120%); }
-        .org-meta-box { flex: 1; display: flex; flex-direction: column; gap: 1px; background: #1c1c1c; border: 1px solid #1c1c1c; }
+        .org-symbol-img { width: 100%; height: 100%; object-fit: contain; }
+        .org-meta-box { flex: 1; display: flex; flex-direction: column; gap: 12px; justify-content: center; }
 
-        /* 관계도 신문 인쇄 스크랩 형태 레이아웃 */
+        /* 관계도 구역 */
         .relation-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 15px; }
-        .relation-card { display: flex; flex-direction: column; background: #fdfaf3; padding: 22px; border: 1px solid #1c1c1c; }
+        .relation-card { display: flex; flex-direction: column; background: rgba(18, 22, 26, 0.65); padding: 25px; border-radius: 8px; border: 1px solid rgba(42, 123, 115, 0.15); }
         .relation-img { 
-            width: 100%; height: auto; object-fit: contain; 
-            border: 1px solid #1c1c1c; margin-bottom: 18px; background: #ffffff; 
-            filter: grayscale(100%) contrast(115%);
+            width: 100%; 
+            height: auto; 
+            object-fit: contain; 
+            border-radius: 6px; 
+            border: 1px solid #2a7b73; 
+            margin-bottom: 18px; 
+            background: #0d0f11; 
         }
+        .relation-info { width: 100%; }
 
-        /* 📑 전국 지부 연합 신문 광고 대시보드식 격자 양식 */
+        /* 📑 전국 지부 연합 가로 병렬(2열) 그리드 레이아웃 */
         .branch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 15px; }
-        .branch-card { display: flex; flex-direction: column; background: #fdfaf3; padding: 22px; border: 1px solid #1c1c1c; justify-content: space-between; }
-        .branch-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 2px solid #1c1c1c; padding-bottom: 8px; }
-        .branch-region { font-size: 15px; font-weight: bold; color: #1c1c1c; }
-        .branch-name { font-size: 16px; color: #1c1c1c; font-weight: bold; font-family: 'Gungsuh', serif; }
+        .branch-card { display: flex; flex-direction: column; background: rgba(18, 22, 26, 0.6); padding: 22px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.02); justify-content: space-between; }
+        .branch-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
+        .branch-region { font-size: 16px; font-weight: bold; color: #ffffff; letter-spacing: -0.5px; }
+        .branch-name { font-size: 15px; color: #93e1d8; font-weight: bold; }
         
-        .branch-meta-vertical { display: flex; flex-direction: column; gap: 1px; background: #1c1c1c; border: 1px solid #1c1c1c; margin-bottom: 16px; }
-        .branch-roster { display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px dashed #1c1c1c; padding-top: 14px; }
-        .roster-badge { background: #ffffff; border: 1px solid #1c1c1c; padding: 5px 10px; display: flex; gap: 8px; align-items: center; }
-        .badge-job { font-size: 11px; color: #000000; font-weight: bold; }
-        .badge-name { font-size: 13px; color: #1c1c1c; }
+        .branch-meta-vertical { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+        .branch-roster { display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px dashed rgba(255,255,255,0.04); padding-top: 14px; }
+        .roster-badge { background: rgba(42, 123, 115, 0.06); border: 1px solid rgba(42, 123, 115, 0.2); padding: 6px 12px; border-radius: 4px; display: flex; gap: 8px; align-items: center; }
+        .badge-job { font-size: 11px; color: #2a7b73; font-weight: bold; }
+        .badge-name { font-size: 13px; color: #cbd5e0; }
 
-        /* 📱 [모바일 호환 전용 최적화 레이아웃] */
+        /* 📱 [모바일 환경 전용 최적화 레이아웃 - 깔끔한 세로 정렬 구조] */
         @media (max-width: 768px) {
             body { flex-direction: column; overflow-y: auto; height: auto; }
             
             .sidebar { 
                 width: 100%; height: auto; padding: 25px 20px; 
-                border-right: none; border-bottom: 3px double #1c1c1c; 
+                border-right: none; border-bottom: 1px solid rgba(42, 123, 115, 0.25); 
             }
-            .oc-summary { display: flex; align-items: center; text-align: left; gap: 15px; border-bottom: none; padding-bottom: 0; }
-            .oc-portrait { width: 80px; height: 80px; border-radius: 0; margin-bottom: 0; box-shadow: none; }
-            .oc-title h1 { font-size: 19px; }
+            .oc-summary { display: flex; align-items: center; text-align: left; gap: 15px; }
+            .oc-portrait { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 0; box-shadow: none; }
+            .oc-title h1 { font-size: 18px; }
             
-            .nav-menu { flex-direction: column; gap: 6px; margin-top: 20px; width: 100%; }
-            .nav-btn { width: 100%; padding: 12px 16px; font-size: 13px; text-align: left; border-left: 4px solid transparent; }
-            .nav-btn:hover, .nav-btn.active { border-left: 4px solid #1c1c1c; }
+            /* 모바일 카테고리 메뉴 세로 직렬 배치 */
+            .nav-menu { 
+                flex-direction: column; 
+                gap: 6px; 
+                margin-top: 20px; 
+                width: 100%; 
+            }
+            .nav-btn { 
+                width: 100%;
+                padding: 12px 16px; 
+                font-size: 13px; 
+                text-align: left; 
+                border-bottom: none !important;
+                border-left: 4px solid transparent; 
+            }
+            .nav-btn:hover, .nav-btn.active { 
+                background: rgba(42, 123, 115, 0.1); color: #93e1d8; border-left: 4px solid #2a7b73; 
+            }
             
             .main-content { padding: 35px 20px; overflow-y: visible; }
-            .info-grid, .relation-grid, .branch-grid, .org-meta-box { grid-template-columns: 1fr; gap: 0; }
-            .info-item { border-bottom: 1px solid #1c1c1c; }
+            .info-grid, .relation-grid, .branch-grid { grid-template-columns: 1fr; gap: 16px; }
             
             .org-dashboard { flex-direction: column; align-items: center; gap: 16px; }
-            .org-logo-box { width: 100%; max-width: 200px; height: 200px; }
+            .org-logo-box { width: 100%; max-width: 240px; height: 240px; }
             .branch-roster { flex-direction: column; align-items: stretch; }
-            .flower-bg { display: none; } /* 모바일 가독성을 위해 배경 꽃 제거 */
+            .flower-bg { display: none; } 
         }
     </style>
 </head>
 <body>
 
-    <!-- 🌧️ 1930년대 감성의 인쇄지 위 먹색 비 스크립트 무대 -->
+    <!-- 🌧️ 배경 비 효과 무대 -->
     <canvas id="rainCanvas"></canvas>
 
-    <!-- 🌸 배경 안개꽃 요소 주입 -->
+    <!-- 🌸 배경 안개꽃 포인트 (칠흑 속의 백색 광채) -->
     <div class="flower-bg flower-top-right"></div>
     <div class="flower-bg flower-bottom-left"></div>
 
@@ -221,7 +230,7 @@
         </div>
 
         <div class="audio-box">
-            <div class="audio-title">🎵 夜に溶ける (밤에 녹아내리는)</div>
+            <div class="audio-title">🎵 夜에溶ける (밤에 녹아내리는)</div>
             <audio id="ocBgm" src="../「夜に溶ける (밤에 녹아내리는)」.mp3" loop autoplay></audio>
             <button class="bgm-btn" onclick="toggleBgm()">音曲 演奏 / 停止</button>
         </div>
@@ -286,32 +295,32 @@
                     철저한 성과주의가 주는 은근한 긴장감이 흐른다. <br>
                     그러나 약속된 보상이 확실하기에 배신이 거의 없으며, 기묘할 정도로 정돈된 근대식 직제 시스템과 기존 야쿠자의 유구한 전통·의리가 공존하는 나고야의 거대 세력.
                 </p>
-                <p class="desc-text" style="color: #555555; font-size: 13px; margin-top: 10px;">
+                <p class="desc-text" style="color: #718096; font-size: 13px; margin-top: 10px;">
                     조직원들은 회장을 '샤쵸(社長, 사장님)' 혹은 '오야붕'이라 칭한다.
                 </p>
             </div>
 
-            <h3>組内役職 (조직 내부 구조 및 간부 라인업)</h3>
+            <h3>組내役職 (조직 내부 구조 및 간부 라인업)</h3>
             <div class="info-vertical">
                 
-                <div class="info-item" style="border-left: 5px solid #1c1c1c;">
+                <div class="info-item" style="border-left: 4px solid #2a7b73;">
                     <div class="info-label">勘定方 幹部 (금융, 기획조 간부)</div>
-                    <div class="info-value" style="font-weight: bold; font-size: 16px; color: #000000; margin-bottom: 5px;">아사히나 소우 (朝比奈 蒼)</div>
-                    <p style="font-size: 13px; color: #333333;">하세가와구미의 전체적인 자금과 브레인 기획을 지휘하는 핵심 직제.</p>
+                    <div class="info-value" style="font-weight: bold; font-size: 17px; color: #ffffff; margin-bottom: 5px;">아사히나 소우 (朝比奈 蒼)</div>
+                    <p style="font-size: 13px; color: #a0aec0;">하세가와구미의 전체적인 자금과 브레인 기획을 지휘하는 핵심 직제.</p>
                 </div>
                 
-                <div class="info-item" style="border-left: 5px solid #1c1c1c;">
-                    <div class="info-label">波止場衆 幹부 (운송, 현장조 간부)</div>
-                    <div class="info-value" style="font-weight: bold; font-size: 16px; color: #000000; margin-bottom: 5px;">사카모토 텟페이 (坂本 鉄平)</div>
-                    <p style="font-size: 13px; color: #333333; margin-bottom: 4px;">스펙: 34세 / 188cm, 95kg / 전직 나고야 항만 하역 노동자 출신</p>
-                    <p style="font-size: 13px; color: #555555;">특징 : 완벽한 급여와 항만 통관 서류 덕에 내 가솔들이 먹고산다는 것을 알아서 충성. 타고난 통뼈와 괴력을 지녔다.</p>
+                <div class="info-item" style="border-left: 4px solid #d69e2e;">
+                    <div class="info-label">波止場衆 幹部 (운송, 현장조 간부)</div>
+                    <div class="info-value" style="font-weight: bold; font-size: 17px; color: #ffffff; margin-bottom: 5px;">사카모토 텟페이 (坂本 鉄平)</div>
+                    <p style="font-size: 13px; color: #cbd5e0; margin-bottom: 4px;">스펙: 34세 / 188cm, 95kg / 전직 나고야 항만 하역 노동자 출신</p>
+                    <p style="font-size: 13px; color: #718096;">특징 : 완벽한 급여와 항만 통관 서류 덕에 내 가솔들이 먹고산다는 것을 알아서 충성. 타고난 통뼈와 괴력을 지녔다.</p>
                 </div>
 
-                <div class="info-item" style="border-left: 5px solid #1c1c1c;">
-                    <div class="info-label">紅隊 幹部 (보안 집행조 간부)</div>
-                    <div class="info-value" style="font-weight: bold; font-size: 16px; color: #000000; margin-bottom: 5px;">키타노 렌 (北野 蓮)</div>
-                    <p style="font-size: 13px; color: #333333; margin-bottom: 4px;">스펙: 31세 / 182cm, 72kg / 하세가와구미의 정통 칼잡이</p>
-                    <p style="font-size: 13px; color: #555555;">특징 : 전통 검술(발도술)의 달인. 돈도, 권력도, 여자도 관심 없고 오직 '하세가와구미의 규율과 오야분의 안위'만을 위해 살아가는 기계 같은 인간. 전통과 명예를 중시한다.</p>
+                <div class="info-item" style="border-left: 4px solid #e53e3e;">
+                    <div class="info-label">紅隊 幹부 (보안 집행조 간부)</div>
+                    <div class="info-value" style="font-weight: bold; font-size: 17px; color: #ffffff; margin-bottom: 5px;">키타노 렌 (北野 蓮)</div>
+                    <p style="font-size: 13px; color: #cbd5e0; margin-bottom: 4px;">스펙: 31세 / 182cm, 72kg / 하세가와구미의 정통 칼잡이</p>
+                    <p style="font-size: 13px; color: #718096;">특징 : 전통 검술(발도술)의 달인. 돈도, 권력도, 여자도 관심 없고 오직 '하세가와구미의 규율과 오야분의 안위'만을 위해 살아가는 기계 같은 인간. 전통과 명예를 중시한다.</p>
                 </div>
                 
             </div>
@@ -327,8 +336,8 @@
                     <img class="relation-img" src="../KakaoTalk_20260630_120048729_01.png" alt="하세가와 에이지">
                     <div class="relation-info">
                         <div class="info-label">組長 (오야붕)</div>
-                        <div class="info-value" style="font-size: 17px; color: #000000; font-weight: bold; margin-bottom: 6px;">하세가와 에이지 (長谷川 栄二)</div>
-                        <p style="font-size: 13px; color: #333333; line-height: 1.6;">하세가와구미의 수장. 소우의 특출난 성과를 전폭 신뢰하며 조직의 거대한 금전 유통 및 기획 설계를 완전히 일임한 절대적인 위정자.</p>
+                        <div class="info-value" style="font-size: 18px; color: #ffffff; font-weight: bold; margin-bottom: 6px;">하세가와 에이지 (長谷川 栄二)</div>
+                        <p style="font-size: 13px; color: #a0aec0; line-height: 1.6;">하세가와구미의 수장. 소우의 특출난 성과를 전폭 신뢰하며 조직의 거대한 금전 유통 및 기획 설계를 완전히 일임한 절대적인 위정자.</p>
                     </div>
                 </div>
 
@@ -337,14 +346,14 @@
                     <img class="relation-img" src="../KakaoTalk_20260630_102555150_02.png" alt="아사히나 소우">
                     <div class="relation-info">
                         <div class="info-label">勘定方 幹部 (칸죠가타 간부)</div>
-                        <div class="info-value" style="font-weight: bold; font-size: 17px; color: #000000; margin-bottom: 6px;">아사히나 소우 (朝比奈 蒼)</div>
-                        <p style="font-size: 13px; color: #333333; line-height: 1.6;">오야붕 아래에서 조직의 자금 흐름을 완벽히 통제하는 인물. 직속 보좌인 켄지를 대동하여 잔혹하고 철저한 연쇄 테스트와 집행 업무를 은밀히 수용 및 수행한다.</p>
+                        <div class="info-value" style="font-weight: bold; font-size: 18px; color: #ffffff; margin-bottom: 6px;">아사히나 소우 (朝比奈 蒼)</div>
+                        <p style="font-size: 13px; color: #a0aec0; line-height: 1.6;">오야붕 아래에서 조직의 자금 흐름을 완벽히 통제하는 인물. 직속 보좌인 켄지를 대동하여 잔혹하고 철저한 연쇄 테스트와 집행 업무를 은밀히 수용 및 수행한다.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- 📑 전국 지부 연합 신문 지면 형태 가로 병렬 그리드 완벽 백업 -->
-            <h3>殘花悲刀 (전국 광역 연합 계보)</h3>
+            <!-- 전국 지부 연합 가로 병렬 그리드 -->
+            <h3 style="margin-top: 45px; border-color: #2a7b73; color: #ffffff; font-size: 18px; letter-spacing: 1px;">殘花悲刀 (전국 광역 연합 계보)</h3>
             <div class="branch-grid">
                 
                 <!-- 교토 지부 -->
@@ -404,7 +413,7 @@
                     <div class="branch-roster">
                         <div class="roster-badge"><span class="badge-job">会長</span><span class="badge-name">타카야 노부마사</span></div>
                         <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">쿠죠 토오루</span></div>
-                        <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">사에토 유즈루</span></div>
+                        <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">사에토 유즈루</span></div>
                     </div>
                 </div>
 
@@ -423,7 +432,7 @@
                     </div>
                     <div class="branch-roster">
                         <div class="roster-badge"><span class="badge-job">親分</span><span class="badge-name">하세가와 에이지</span></div>
-                        <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">아사히나 소우</span></div>
+                        <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">아사히나 소우</span></div>
                     </div>
                 </div>
 
@@ -443,7 +452,7 @@
                     <div class="branch-roster">
                         <div class="roster-badge"><span class="badge-job">堂主</span><span class="badge-name">쿠제 리오</span></div>
                         <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">시라누이 리츠</span></div>
-                        <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">키리시마 슈우</span></div>
+                        <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">키리시마 슈우</span></div>
                     </div>
                 </div>
 
@@ -486,7 +495,7 @@
             }
         }, { once: true });
 
-        // 🌧️ 배경에 추적추적 내리는 빈티지 먹색 빗줄기 효과 (Canvas 루프)
+        // 🌧️ 배경에 추적추적 내리는 녹록색 빗줄기 그래픽 엔진
         const canvas = document.getElementById('rainCanvas');
         const ctx = canvas.getContext('2d');
         
@@ -508,7 +517,7 @@
 
         function drawRain() {
             ctx.clearRect(0, 0, width, height);
-            ctx.strokeStyle = 'rgba(28, 28, 28, 0.14)'; /* 흑인쇄지와 완벽 동화되는 아날로그 빗줄기 색상 조율 */
+            ctx.strokeStyle = 'rgba(147, 225, 216, 0.25)'; /* 녹록색 투명 광채 물리 빗줄기 */
             ctx.lineCap = 'round';
 
             for (let i = 0; i < maxDrops; i++) {
