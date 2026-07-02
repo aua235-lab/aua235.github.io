@@ -8,6 +8,7 @@
         /* 🖤 [검은색 & 녹록색 기반 느와르 테마 베이스] */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
+            /* 칠흑 배경을 맨 바닥에 깔아 모든 효과가 투명하게 비치도록 세팅 */
             background: #090a0c; 
             color: #cbd5e0; 
             font-family: 'Malgun Gothic', sans-serif; 
@@ -17,75 +18,75 @@
             position: relative;
         }
 
-        /* 🌧️ 레이어 1: 배경에 내리는 차가운 비 무대 */
+        /* 🌧️ 레이어 1: 최상단에서 화면 전체에 내리는 차가운 비 무대 */
         #rainCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 10;
+            z-index: 20; /* 빗줄기가 모든 요소 위로 떨어지도록 배치 */
             pointer-events: none;
-            opacity: 0.22;
+            opacity: 0.25;
         }
 
-        /* 🌸 레이어 2: 하단에서 위로 민들레씨처럼 흩날려 올라가는 안개꽃 파티클 무대 */
+        /* 🌸 레이어 2: [핵심기능] 하단 화단에서 위로 민들레씨처럼 아련하게 흩날려 퍼지는 안개꽃 파티클 무대 */
         #flowerCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 5; 
+            z-index: 2; /* 카드와 배경 사이 공간에서 부드럽게 표류 */
             pointer-events: none;
         }
 
-        /* 🌫️ [추가기능 1] 하세가와구미의 상징: 지면을 은밀하게 일렁이는 반투명 실시간 운무(안개) 구역 */
+        /* 🌫️ 레이어 3: 하세가와구미의 상징 - 지면을 두텁고 은밀하게 일렁이는 리얼 운무(안개) 이펙트 */
         .fog-container {
             position: fixed;
             bottom: 0;
             right: 0;
             width: calc(100vw - 340px);
-            height: 160px;
+            height: 240px; /* 안개가 눈에 확실히 띄도록 고도 대폭 업 */
             overflow: hidden;
             pointer-events: none;
-            z-index: 3; /* 안개꽃 화단 바로 뒷바탕에 배치하여 입체감 조성 */
+            z-index: 1; /* 맨 밑바탕에 깔려 은근한 공간감 형성 */
+            opacity: 0.65;
         }
         .fog-wave {
             position: absolute;
-            width: 250%;
+            width: 300%;
             height: 100%;
-            bottom: -30px;
-            background: radial-gradient(circle at 50% 100%, rgba(42, 123, 115, 0.15), transparent 65%);
-            filter: blur(40px);
-            animation: fogDrift 28s linear infinite;
+            bottom: -40px;
+            background: radial-gradient(circle at 50% 100%, rgba(42, 123, 115, 0.35), transparent 70%);
+            filter: blur(45px);
+            animation: fogDrift 22s linear infinite;
         }
         .fog-wave-secondary {
-            background: radial-gradient(circle at 30% 100%, rgba(255, 255, 255, 0.05), transparent 55%);
-            animation: fogDrift 42s linear infinite reverse;
-            animation-delay: -7s;
+            background: radial-gradient(circle at 30% 100%, rgba(147, 225, 216, 0.2), transparent 60%);
+            animation: fogDrift 32s linear infinite reverse;
+            animation-delay: -5s;
         }
         @keyframes fogDrift {
             0% { transform: translateX(0) translateY(0); }
-            50% { transform: translateX(-20%) translateY(5px); }
+            50% { transform: translateX(-15%) translateY(8px); }
             100% { transform: translateX(0) translateY(0); }
         }
 
-        /* 🌿 하단부 안개꽃 덩굴 화단 지면 패널 */
+        /* 🌿 레이어 4: 하단부에 흐드러지게 피어있는 안개꽃 덩굴 화단 지면 패널 */
         .flower-bed-floor {
             position: fixed;
             bottom: 0;
             right: 0;
             width: calc(100vw - 340px); 
-            height: 80px;
+            height: 110px; /* 화단 크기를 키워 선명하게 노출 */
             pointer-events: none;
-            z-index: 4;
-            opacity: 0.25; 
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30" preserveAspectRatio="none"><g fill="%23ffffff" opacity="0.8"><circle cx="5" cy="28" r="1.5"/><circle cx="8" cy="24" r="1"/><circle cx="14" cy="26" r="2"/><circle cx="22" cy="22" r="1.2"/><circle cx="28" cy="27" r="1.8"/><circle cx="35" cy="25" r="1.5"/><circle cx="42" cy="23" r="2"/><circle cx="50" cy="26" r="1.2"/><circle cx="58" cy="22" r="1.5"/><circle cx="64" cy="27" r="2"/><circle cx="72" cy="24" r="1.3"/><circle cx="80" cy="23" r="1.7"/><circle cx="88" cy="26" r="1.5"/><circle cx="95" cy="22" r="2"/><circle cx="92" cy="28" r="1.2"/><path d="M5,30 L14,26 M22,30 L22,22 M35,30 L42,23 M58,30 L58,22 M72,30 L80,23 M88,30 L88,26" stroke="%232a7b73" stroke-width="0.3"/></g></svg>');
-            background-size: 350px 80px;
+            z-index: 3; /* 안개보다는 위, 본문보다는 뒤 */
+            opacity: 0.55; /* 안개꽃 화단이 아주 확실하게 보이도록 농도 업 */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30" preserveAspectRatio="none"><g fill="%23ffffff" opacity="0.95"><circle cx="3" cy="28" r="1.4"/><circle cx="6" cy="24" r="1.1"/><circle cx="10" cy="26" r="1.6"/><circle cx="15" cy="23" r="1.3"/><circle cx="21" cy="27" r="1.5"/><circle cx="26" cy="24" r="1.8"/><circle cx="32" cy="22" r="1.3"/><circle cx="38" cy="26" r="1.6"/><circle cx="44" cy="23" r="1.4"/><circle cx="50" cy="25" r="1.7"/><circle cx="56" cy="22" r="1.2"/><circle cx="62" cy="27" r="1.9"/><circle cx="68" cy="24" r="1.4"/><circle cx="74" cy="23" r="1.6"/><circle cx="80" cy="26" r="1.3"/><circle cx="86" cy="22" r="1.8"/><circle cx="92" cy="25" r="1.5"/><circle cx="97" cy="23" r="1.7"/><path d="M3,30 L10,26 M15,30 L21,27 M32,30 L38,26 M50,30 L56,22 M68,30 L74,23 M86,30 L92,25" stroke="%232a7b73" stroke-width="0.35"/></g></svg>');
+            background-size: 280px 110px;
             background-repeat: repeat-x;
             background-position: bottom;
-            filter: drop-shadow(0px -5px 15px rgba(147, 225, 216, 0.15));
         }
 
         /* [좌측] 고정 사이드바 */
@@ -102,7 +103,7 @@
         }
         .oc-summary { text-align: center; }
         
-        /* ⚡ [추가기능 2] 마우스 호버 시 옥록색 네온 글로우 및 차가운 지터 노이즈 잔상 물리 효과 */
+        /* ⚡ 마우스 호버 시 옥록색 네온 글로우 및 차가운 지터 노이즈 잔상 이펙트 */
         .oc-portrait, .relation-img { 
             width: 100%; 
             height: 260px; 
@@ -120,7 +121,6 @@
             cursor: pointer;
             animation: executiveNoise 0.25s linear infinite;
         }
-        /* 슈트 속 숨겨진 잔혹도를 상징하는 미세 진동 노이즈 디스토션 */
         @keyframes executiveNoise {
             0% { filter: contrast(105%) brightness(100%); }
             20% { filter: contrast(125%) brightness(110%); transform: scale(1.015) translate(0.5px, -0.5px); }
@@ -154,11 +154,12 @@
         }
         .bgm-btn:hover { background: #1d5751; }
 
-        /* [우측] 콘텐츠 메인 영역 */
+        /* [우측] 콘텐츠 메인 영역 - 배경을 투명하게 뚫어 이펙트가 관통해 노출되도록 개조 */
         .main-content { 
             flex: 1; padding: 55px 60px; overflow-y: auto; 
-            background: radial-gradient(circle at 80% 20%, #13171b 0%, #090a0c 100%); 
-            z-index: 2;
+            background: transparent; 
+            z-index: 4; /* 글씨 가독성을 위해 이펙트들보다 상위 레이어로 배치 */
+            position: relative;
         }
         
         /* 탭 전환 효과 */
@@ -166,14 +167,13 @@
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 타이틀 및 폰트 세팅 */
+        /* 타이틀 및 개별 정보 카드에 고정 다크 배경을 주어 흩날리는 파티클 뒤에서도 글자가 완벽히 읽히도록 조율 */
         h2 { color: #ffffff; font-size: 24px; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 12px; font-weight: 600; letter-spacing: -0.5px; }
         h3 { color: #93e1d8; font-size: 16px; margin: 35px 0 15px 0; border-left: 3px solid #2a7b73; padding-left: 10px; }
         .quote-block { font-size: 15px; color: #93e1d8; font-style: italic; line-height: 1.8; margin-bottom: 30px; padding-left: 20px; border-left: 4px solid #2a7b73; }
         
-        /* 기본 격자형 프로필 그리드 */
         .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 25px; }
-        .info-item { background: rgba(20, 24, 28, 0.5); padding: 15px 18px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.02); }
+        .info-item { background: rgba(15, 18, 22, 0.88); padding: 15px 18px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.02); backdrop-filter: blur(2px); }
         .info-label { font-size: 11px; color: #4a5568; margin-bottom: 5px; font-weight: bold; letter-spacing: 0.5px; }
         .info-value { font-size: 14px; color: #e2e8f0; line-height: 1.5; }
         .info-vertical { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
@@ -185,15 +185,14 @@
         .bullet-list li::before { content: "•"; color: #2a7b73; position: absolute; left: 0; font-weight: bold; }
 
         /* 하세가와구미 타이틀 */
-        .org-card { background: rgba(17, 20, 24, 0.7); padding: 25px; border-radius: 8px; border: 1px solid rgba(42, 123, 115, 0.15); margin-bottom: 25px; }
+        .org-card { background: rgba(17, 20, 24, 0.88); padding: 25px; border-radius: 8px; border: 1px solid rgba(42, 123, 115, 0.15); margin-bottom: 25px; backdrop-filter: blur(2px); }
         .org-title { margin-bottom: 25px; display: flex; align-items: baseline; gap: 12px; }
         .org-title-hanja { font-size: 38px; font-weight: bold; color: #ffffff; letter-spacing: 2px; }
         .org-title-ko { font-size: 18px; color: #a0aec0; font-weight: normal; }
         
-        /* 로고 구역 */
         .org-dashboard { display: flex; gap: 20px; margin-bottom: 25px; }
         .org-logo-box { 
-            width: 220px; height: 220px; background: rgba(9, 10, 12, 0.6); 
+            width: 220px; height: 220px; background: rgba(9, 10, 12, 0.8); 
             border-radius: 6px; border: 1px solid rgba(42, 123, 115, 0.25); 
             overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; 
         }
@@ -202,20 +201,20 @@
 
         /* 관계도 구역 */
         .relation-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 15px; }
-        .relation-card { display: flex; flex-direction: column; background: rgba(18, 22, 26, 0.65); padding: 25px; border-radius: 8px; border: 1px solid rgba(42, 123, 115, 0.15); }
+        .relation-card { display: flex; flex-direction: column; background: rgba(18, 22, 26, 0.88); padding: 25px; border-radius: 8px; border: 1px solid rgba(42, 123, 115, 0.15); backdrop-filter: blur(2px); }
         .relation-img { 
             width: 100%; 
             height: auto; 
             object-fit: contain; 
             border-radius: 6px; 
             border: 1px solid #2a7b73; 
-            margin-bottom: 0px; /* 지터 애니메이션 시 여백 보정기능 */
+            margin-bottom: 0px; 
             background: #0d0f11; 
         }
 
         /* 📑 전국 지부 연합 가로 병렬 그리드 양식 */
         .branch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 15px; }
-        .branch-card { display: flex; flex-direction: column; background: rgba(18, 22, 26, 0.6); padding: 22px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.02); justify-content: space-between; }
+        .branch-card { display: flex; flex-direction: column; background: rgba(18, 22, 26, 0.88); padding: 22px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.02); justify-content: space-between; backdrop-filter: blur(2px); }
         .branch-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
         .branch-region { font-size: 16px; font-weight: bold; color: #ffffff; letter-spacing: -0.5px; }
         .branch-name { font-size: 15px; color: #93e1d8; font-weight: bold; }
@@ -253,7 +252,6 @@
             .org-logo-box { width: 100%; max-width: 240px; height: 240px; }
             .branch-roster { flex-direction: column; align-items: stretch; }
             
-            /* 모바일 운무/화단 리사이즈 보정 */
             .flower-bed-floor, .fog-container { width: 100vw; }
         }
     </style>
@@ -288,7 +286,7 @@
         <div class="nav-menu">
             <button class="nav-btn active" onclick="openTab(event, 'profile')">身上調書</button>
             <button class="nav-btn" onclick="openTab(event, 'organization')">長谷川組</button>
-            <button class="nav-btn" onclick="openTab(event, 'relations')">相関系譜</button>
+            <button class="nav-btn" onclick="openTab(event, 'relations')">相관系譜</button>
         </div>
 
         <div class="audio-box">
@@ -429,8 +427,8 @@
                     </div>
                     <div class="branch-roster">
                         <div class="roster-badge"><span class="badge-job">会長</span><span class="badge-name">쿠사나기 신이치</span></div>
-                        <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">하나오카 카나토</span></div>
-                        <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">사카키 쿄야</span></div>
+                        <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">하나오카 카나토</span></div>
+                        <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">사카키 쿄야</span></div>
                     </div>
                 </div>
 
@@ -468,8 +466,8 @@
                     </div>
                     <div class="branch-roster">
                         <div class="roster-badge"><span class="badge-job">会長</span><span class="badge-name">타카야 노부마사</span></div>
-                        <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">쿠죠 토오루</span></div>
-                        <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">사에토 유즈루</span></div>
+                        <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">쿠죠 토오루</span></div>
+                        <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">사에토 유즈루</span></div>
                     </div>
                 </div>
 
@@ -486,7 +484,7 @@
                         </div>
                     </div>
                     <div class="branch-roster">
-                        <div class="roster-badge"><span class="badge-job">親분</span><span class="badge-name">하세가와 에이지</span></div>
+                        <div class="roster-badge"><span class="badge-job">親分</span><span class="badge-name">하세가와 에이지</span></div>
                         <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">아사히나 소우</span></div>
                     </div>
                 </div>
@@ -505,7 +503,7 @@
                     </div>
                     <div class="branch-roster">
                         <div class="roster-badge"><span class="badge-job">堂主</span><span class="badge-name">쿠제 리오</span></div>
-                        <div class="roster-badge"><span class="badge-job">幹部</span><span class="badge-name">시라누이 리츠</span></div>
+                        <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">시라누이 리츠</span></div>
                         <div class="roster-badge"><span class="badge-job">幹부</span><span class="badge-name">키리시마 슈우</span></div>
                     </div>
                 </div>
@@ -515,7 +513,7 @@
 
     </div>
 
-    <!-- 스크립트 제어 -->
+    <!-- 스크립트 엔진 제어 -->
     <script>
         function openTab(evt, tabName) {
             var i, tabcontent, navbtn;
@@ -592,18 +590,18 @@
         let fWidth = flowerCanvas.width = window.innerWidth;
         let fHeight = flowerCanvas.height = window.innerHeight;
 
-        const maxFlowers = 50; 
+        const maxFlowers = 65; // 입자 수를 늘려 풍성함 연출
         const flowers = [];
         for (let i = 0; i < maxFlowers; i++) {
             flowers.push({
                 x: Math.random() * fWidth,
-                y: fHeight + Math.random() * 150, // 하단 안개꽃 지면 라인 안쪽에서 생성
-                r: Math.random() * 1.6 + 1,       // 영롱하고 가벼운 안개꽃 알갱이 크기
-                vx: -(Math.random() * 0.7 + 0.3),  // 비바람의 방향에 맞춰 미세한 좌상향 이동
-                vy: -(Math.random() * 1.1 + 0.5),  // 민들레씨처럼 중력을 거스르고 아련하게 상승하는 속도
-                opacity: Math.random() * 0.4 + 0.2, 
+                y: fHeight - Math.random() * 80, // 하단부 화단 밀집 구역에서 명확히 스폰
+                r: Math.random() * 2.2 + 1.4,     // 민들레씨처럼 눈에 띄도록 알갱이 크기 확대 보정
+                vx: -(Math.random() * 0.5 + 0.2),  // 바람에 맞춰 부드러운 좌사향 상승
+                vy: -(Math.random() * 1.4 + 0.4),  // 중력을 거스르는 아련한 상승 속도
+                opacity: Math.random() * 0.7 + 0.3, 
                 wobble: Math.random() * Math.PI,    
-                wobbleSpeed: Math.random() * 0.02 + 0.012 
+                wobbleSpeed: Math.random() * 0.025 + 0.012 
             });
         }
 
@@ -612,12 +610,17 @@
             for (let i = 0; i < maxFlowers; i++) {
                 const f = flowers[i];
                 fCtx.beginPath();
-                fCtx.fillStyle = `rgba(255, 255, 255, ${f.opacity})`;
-                fCtx.shadowBlur = 5;
-                fCtx.shadowColor = '#93e1d8'; // 녹록색 백그라운드와 어우러지는 미세 야광 효과
                 
-                // 사인파 곡선 물리엔진을 적용해 바람에 흩날리는 아련한 움직임 연출
-                const finalX = f.x + Math.sin(f.wobble) * 22;
+                // [민들레씨 연출 핵심] 위로 높이 올라갈수록 점진적으로 흐려지며 넓게 흩어지는 디스퍼전 페이드 기믹 주입
+                let currentOpacity = f.opacity * (f.y / fHeight);
+                if (currentOpacity < 0) currentOpacity = 0;
+                
+                fCtx.fillStyle = `rgba(255, 255, 255, ${currentOpacity})`;
+                fCtx.shadowBlur = 6;
+                fCtx.shadowColor = '#93e1d8'; // 옥색 야광 입자감 부여
+                
+                // 부드러운 스윙 운동 연출
+                const finalX = f.x + Math.sin(f.wobble) * 24;
                 fCtx.arc(finalX, f.y, f.r, 0, Math.PI * 2);
                 fCtx.fill();
                 
@@ -625,11 +628,11 @@
                 f.x += f.vx;
                 f.wobble += f.wobbleSpeed;
                 
-                // 화면 꼭대기 위나 왼쪽 임계점을 넘어가면 다시 하부 화단에서 스폰되도록 무한 루프 구현
+                // 화면 상단으로 사라지면 다시 하단 화단 매트릭스에서 안전하게 리스폰
                 if (f.y < -10 || f.x < -10) {
-                    f.y = fHeight + Math.random() * 40;
-                    f.x = Math.random() * fWidth + 80;
-                    f.opacity = Math.random() * 0.4 + 0.2;
+                    f.y = fHeight + Math.random() * 30;
+                    f.x = Math.random() * fWidth + 60;
+                    f.opacity = Math.random() * 0.7 + 0.3;
                 }
             }
             fCtx.shadowBlur = 0; 
@@ -643,7 +646,7 @@
             fHeight = flowerCanvas.height = window.innerHeight;
         });
 
-        // 두 엔진 완벽 동시 가동
+        // 엔진 가동
         drawRain();
         drawFlowers();
     </script>
