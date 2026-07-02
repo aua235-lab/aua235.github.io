@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아사히나 소우 (朝比奈 蒼)</title>
     <style>
-        /* 기본 리셋 및 전체 화면 고정 layout */
+        /* 1930s Noir Theme Base */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            background: #0b0d0f; 
+            background: #090a0c; 
             color: #cbd5e0; 
             font-family: 'Malgun Gothic', sans-serif; 
             height: 100vh; 
@@ -16,143 +16,216 @@
             overflow: hidden; 
         }
 
-        /* [좌측] 고정 사이드바 메뉴 영역 */
+        /* [좌측] 고정 사이드바 */
         .sidebar { 
-            width: 320px; 
-            background: #111417; 
-            border-right: 1px solid rgba(42, 123, 115, 0.2); 
+            width: 340px; 
+            background: #0f1114; 
+            border-right: 1px solid rgba(42, 123, 115, 0.25); 
             display: flex; 
             flex-direction: column; 
-            padding: 40px 25px; 
+            padding: 35px 25px; 
             justify-content: space-between; 
+            flex-shrink: 0;
         }
-        .oc-profile-summary { text-align: center; }
+        .oc-summary { text-align: center; }
         .oc-portrait { 
             width: 100%; 
-            height: 240px; 
+            height: 260px; 
             object-fit: cover; 
-            border-radius: 8px; 
+            border-radius: 6px; 
             border: 1px solid rgba(42, 123, 115, 0.3); 
-            margin-bottom: 20px; 
+            margin-bottom: 18px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-        .oc-title h1 { color: #ffffff; font-size: 20px; margin-bottom: 4px; letter-spacing: -0.5px; }
-        .oc-title p { color: #2a7b73; font-size: 12px; font-weight: bold; letter-spacing: 1px; }
+        .oc-title h1 { color: #ffffff; font-size: 22px; margin-bottom: 4px; letter-spacing: -0.5px; }
+        .oc-title p { color: #2a7b73; font-size: 11px; font-weight: bold; letter-spacing: 2px; }
 
-        /* 네비게이션 탭 메뉴 버튼 */
-        .nav-menu { margin-top: 35px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
+        /* 메뉴 버튼 스타일 */
+        .nav-menu { margin-top: 30px; display: flex; flex-direction: column; gap: 6px; flex-grow: 1; }
         .nav-btn { 
             background: none; border: none; color: #718096; text-align: left; 
-            padding: 12px 18px; font-size: 14px; font-weight: bold; cursor: pointer; 
-            border-radius: 6px; transition: all 0.3s ease; letter-spacing: 1px; 
+            padding: 14px 18px; font-size: 13px; font-weight: bold; cursor: pointer; 
+            border-radius: 4px; transition: all 0.25s ease; letter-spacing: 1px; 
         }
         .nav-btn:hover, .nav-btn.active { 
-            background: rgba(42, 123, 115, 0.12); color: #93e1d8; border-left: 4px solid #2a7b73; 
+            background: rgba(42, 123, 115, 0.1); color: #93e1d8; border-left: 4px solid #2a7b73; 
         }
 
-        /* 사이드바 하단 미니 오디오 플레이어 */
-        .audio-player-box { background: #161a1e; padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); }
+        /* 하단 미니 오디오 플레이어 */
+        .audio-box { background: #14171a; padding: 15px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.02); }
         .audio-title { font-size: 11px; color: #718096; margin-bottom: 8px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
         .bgm-btn { 
             width: 100%; padding: 10px; background: #2a7b73; color: white; border: none; 
-            border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px; transition: 0.2s; 
+            border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 11px; transition: 0.2s; 
+            box-shadow: 0 4px 10px rgba(42, 123, 115, 0.2);
         }
         .bgm-btn:hover { background: #1d5751; }
 
-        /* [우측] 메인 콘텐츠 스크롤 영역 */
+        /* [우측] 콘텐츠 메인 영역 */
         .main-content { 
-            flex: 1; padding: 60px 50px; overflow-y: auto; 
-            background: radial-gradient(circle at top right, #15191d 0%, #0b0d0f 100%); 
+            flex: 1; padding: 55px 60px; overflow-y: auto; 
+            background: radial-gradient(circle at 80% 20%, #13171b 0%, #090a0c 100%); 
         }
         
-        /* 탭 전환 애니메이션 효과 */
-        .tab-content { display: none; animation: fadeIn 0.4s ease forwards; }
+        /* 탭 전환 효과 */
+        .tab-content { display: none; animation: fadeIn 0.35s ease forwards; }
         .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 본문 타이포그래피 */
-        h2 { color: #ffffff; font-size: 26px; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 15px; }
-        .quote-block { font-size: 16px; color: #93e1d8; font-style: italic; line-height: 1.8; margin-bottom: 30px; padding-left: 20px; border-left: 4px solid #2a7b73; }
+        /* 대타이틀 */
+        h2 { color: #ffffff; font-size: 24px; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 12px; font-weight: 600; letter-spacing: -0.5px; }
+        h3 { color: #93e1d8; font-size: 16px; margin: 25px 0 12px 0; border-left: 3px solid #2a7b73; padding-left: 10px; }
+
+        /* 인용구 */
+        .quote-block { font-size: 15px; color: #93e1d8; font-style: italic; line-height: 1.8; margin-bottom: 30px; padding-left: 20px; border-left: 4px solid #2a7b73; }
         
-        /* 프로필용 격자 그리드 구조 */
-        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 30px; }
-        .info-item { background: rgba(20, 24, 28, 0.6); padding: 15px 20px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.01); }
-        .info-label { font-size: 12px; color: #4a5568; margin-bottom: 4px; font-weight: bold; }
-        .info-value { font-size: 14px; color: #e2e8f0; }
+        /* 격자형 프로필 그리드 */
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 25px; }
+        .info-item { background: rgba(20, 24, 28, 0.5); padding: 15px 18px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.02); }
+        .info-label { font-size: 11px; color: #4a5568; margin-bottom: 5px; font-weight: bold; letter-spacing: 0.5px; }
+        .info-value { font-size: 14px; color: #e2e8f0; line-height: 1.5; }
         
-        .story-text { line-height: 1.8; font-size: 14px; color: #a0aec0; text-align: justify; }
+        /* 일반 텍스트 및 서사 블록 */
+        .desc-text { line-height: 1.8; font-size: 14px; color: #a0aec0; text-align: justify; }
+        .bullet-list { list-style: none; margin-top: 5px; }
+        .bullet-list li { position: relative; padding-left: 15px; margin-bottom: 8px; font-size: 14px; color: #cbd5e0; line-height: 1.6; }
+        .bullet-list li::before { content: "•"; color: #2a7b73; position: absolute; left: 0; font-weight: bold; }
+
+        /* 조직용 배너 카드 */
+        .org-card { background: rgba(17, 20, 24, 0.7); padding: 25px; border-radius: 8px; border: 1px solid rgba(42, 123, 115, 0.15); margin-bottom: 25px; }
+        .org-title { font-size: 20px; color: #ffffff; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .org-badge { background: #2a7b73; color: #ffffff; font-size: 11px; padding: 3px 8px; border-radius: 3px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <!-- 좌측 고정 사이드바 -->
+    <!-- [좌측] 고정 사이드바 메뉴 -->
     <div class="sidebar">
-        <div class="oc-profile-summary">
-            <!-- 이미지 경로 상위폴더 탈출 기법 유지 -->
+        <div class="oc-summary">
             <img class="oc-portrait" src="../Jin_k_middle_shot._A_highly_detailed_sharp_close-up_portrait__d6cd11d6-0f8e-4ff8-863d-f1e4aa63f54e_2.png" alt="소우">
             <div class="oc-title">
                 <h1>아사히나 소우</h1>
-                <p><pont size= 12>(朝比奈 蒼)</pont></p>
                 <p>ASAHINA SOW</p>
             </div>
         </div>
 
-        <!-- 메뉴 버튼들 (누르면 해당 ID의 콘텐트만 보임) -->
         <div class="nav-menu">
             <button class="nav-btn active" onclick="openTab(event, 'profile')">CHARACTER PROFILE</button>
-            <button class="nav-btn" onclick="openTab(event, 'story')">BACKGROUND STORY</button>
+            <button class="nav-btn" onclick="openTab(event, 'organization')">HASEGAWA GUMI</button>
             <button class="nav-btn" onclick="openTab(event, 'relations')">RELATIONSHIPS</button>
         </div>
 
-        <!-- 하단 음악 플레이어 -->
-        <div class="audio-player-box">
+        <div class="audio-box">
             <div class="audio-title">🎵 夜に溶ける (밤에 녹아내리는)</div>
             <audio id="ocBgm" src="../「夜に溶ける (밤에 녹아내리는)」.mp3" loop></audio>
             <button class="bgm-btn" onclick="toggleBgm()">BGM PLAY / PAUSE</button>
         </div>
     </div>
 
-    <!-- 우측 메인 콘텐츠 영역 -->
+    <!-- [우측] 콘텐츠 메인 영역 -->
     <div class="main-content">
         
-        <!-- TAB 1: 프로필 -->
+        <!-- 탭 1: 캐릭터 프로필 -->
         <div id="profile" class="tab-content active">
             <h2>CHARACTER PROFILE</h2>
             <div class="quote-block">
-                "첩의 자리도 나쁘지 않잖아.<br><br><br>당신의 그 맑고 투명한 영혼을 진흙탕에 섞지 않기 위해 내 은밀한 울타리 안에 가두려는 것뿐이니까.<br><br><br>그러니까 내 안방에서 숨만 쉬어."
+                "첩의 자리도 나쁘지 않잖아. 당신의 그 맑고 투명한 영혼을 진흙탕에 섞지 않기 위해 내 은밀한 울타리 안에 가두려는 것뿐이니까. 그러니까 내 안방에서 숨만 쉬어."
             </div>
+            
             <div class="info-grid">
                 <div class="info-item"><div class="info-label">NAME</div><div class="info-value">아사히나 소우 (朝比奈 蒼)</div></div>
-                <div class="info-item"><div class="info-label">AGE</div><div class="info-value">29세</div></div>
-                <div class="info-item"><div class="info-label">GENDER</div><div class="info-value">남성</div></div>
-                <div class="info-item"><div class="info-label">HEIGHT</div><div class="info-value">186 cm</div></div>
-                <div class="info-item"><div class="info-label">AFFILIATION</div><div class="info-value">1930년대 나고야 하세가와구미 간부</div></div>
-                <div class="info-item"><div class="info-label">EYE COLOR</div><div class="info-value">시리도록 차가운 옥록색</div></div>
+                <div class="info-item"><div class="info-label">BIRTHDAY</div><div class="info-value">5월 15일</div></div>
+                <div class="info-item"><div class="info-label">SPEC</div><div class="info-value">29세 / 186 cm / 78 kg</div></div>
+                <div class="info-item"><div class="info-label">RESIDENCE</div><div class="info-value">나고야 시라카베 최고급 저택가</div></div>
+            </div>
+
+            <h3>VISUAL ASPECTS</h3>
+            <div class="info-grid">
+                <div class="info-item"><div class="info-label">HAIR & EYE</div><div class="info-value">포마드로 정갈하게 넘긴 올백 블랙 헤어, 시리도록 차가운 옥록색 눈동자.</div></div>
+                <div class="info-item"><div class="info-label">ATTIRE</div><div class="info-value">1930년대식 서양식 3피스 슈트 위에 최고급 프리미엄 옥색 실크 하오리를 걸침. 은테 안경 착용.</div></div>
+                <div class="info-item" style="grid-column: span 2;"><div class="info-label">TATTOO (이레즈미)</div><div class="info-value">왼쪽 가슴(심장)부터 어깨, 등까지 휘몰아치듯 이어지는 흑백 파도 문신. 잔혹하게 뻗은 검은 파도 라인의 끝자락에는 기묘하리만치 선명하고 순결한 안개꽃 봉오리들이 피어있다.</div></div>
+            </div>
+
+            <h3>CHARACTERISTICS</h3>
+            <div class="desc-text">
+                <ul class="bullet-list">
+                    <li>포커페이스 뒤에 지독한 소유욕과 부재에 대한 생리적 집착을 감춘 남자. 모든 관계를 숫자로 환산하는 '냉혹한 인간 계산기'이다.</li>
+                    <li>지독한 소음을 혐오하며, 평소 고요하고 정돈된 분위기의 기사텐을 찾아 홀로 커피를 즐기는 것이 오랜 습관이다.</li>
+                    <li>집에 머무를 때는 낡은 축음기에서 흘러나오는 서양 클래식 선율을 가만히 감상하곤 한다. 그의 손에는 항상 은빛 라이터와 궐련이 들려 있다.</li>
+                    <li><strong>{{user}}과 연애 8년 차 :</strong> 숫자로 세상을 보던 남자의 생에 유일하게 침범한 예외이자 완벽한 집착의 대상. 그의 자당착적 순애가 향하는 단 한 사람.</li>
+                </ul>
             </div>
         </div>
 
-        <!-- TAB 2: 스토리 -->
-        <div id="story" class="tab-content">
-            <h2>BACKGROUND STORY</h2>
-            <div class="story-text">
-                하세가와구미의 칸죠가타(금융·기획) 간부이자 일명 '냉혹한 인간 계산기'. <br><br>
-                모든 인간관계와 정치를 숫자로 환산하여 빈틈없이 처리하는 포커페이스의 소유자다. 하지만 그 이면에는 지독한 소유욕과 부재에 대한 생리적 집착을 감추고 있으며, 한 번 집착하기 시작한 대상에게는 파괴적인 수준의 자당착적 순애를 불태운다. 은테 안경 너머 비치는 눈동자는 언제나 서늘하다.
+        <!-- 탭 2: 조직 설정 -->
+        <div id="organization" class="tab-content">
+            <h2>ORGANIZATION SETTING</h2>
+            
+            <div class="org-card">
+                <div class="org-title">하세가와구미 <span class="org-badge">長谷川組</span></div>
+                <div class="info-grid" style="margin-bottom: 15px;">
+                    <div class="info-item"><div class="info-label">조직 상징</div><div class="info-value">음양 (균형과 회색지대), 안개</div></div>
+                    <div class="info-item"><div class="info-label">조직 구호</div><div class="info-value">"돈은 진실이다."</div></div>
+                </div>
+                <p class="desc-text" style="font-size: 13px;">
+                    <strong>조직 분위기:</strong> 철저한 성과주의가 주는 은근한 긴장감이 흐른다. 그러나 약속된 보상이 확실하기에 배신이 거의 없으며, 기묘할 정도로 정돈된 근대식 직제 시스템과 기존 야쿠자의 유구한 전통·의리가 공존하는 나고야의 거대 세력. 조직원들은 회장을 '샤쵸(사장님)' 혹은 '오야붕'이라 칭한다.
+                </p>
+            </div>
+
+            <h3>THREE PILLARS (조직 내부 구조 및 간부 라인업)</h3>
+            <div class="info-grid">
+                <div class="info-item" style="border-top: 3px solid #2a7b73;">
+                    <div class="info-label">칸죠가타 (금융 · 기획조)</div>
+                    <div class="info-value" style="font-weight: bold; margin-bottom: 5px; color: #ffffff;">간부 : 아사히나 소우</div>
+                    <p style="font-size: 12px; color: #a0aec0;">하세가와구미의 자금줄과 기획을 담당하는 핵심 부서. 숫자로 움직이는 브레인 조직.</p>
+                </div>
+                
+                <div class="info-item" style="border-top: 3px solid #d69e2e;">
+                    <div class="info-label">하테바シュ (운송 · 현장조)</div>
+                    <div class="info-value" style="font-weight: bold; margin-bottom: 5px; color: #ffffff;">간부 : 사카모토 텟페이 (34세)</div>
+                    <p style="font-size: 12px; color: #a0aec0; margin-bottom: 5px;">188cm / 95kg / 전직 나고야 항만 하역 노동자 출신.</p>
+                    <p style="font-size: 12px; color: #718096;">"완벽한 급여와 항만 통관 서류 덕에 내 가솔들이 먹고산다." 타고난 통뼈와 괴력의 소유자로, 확실한 보상 시스템에 무한한 충성을 바친다.</p>
+                </div>
+
+                <div class="info-item" style="border-top: 3px solid #e53e3e; grid-column: span 2;">
+                    <div class="info-label">구레나이타이 (보안 · 집행조)</div>
+                    <div class="info-value" style="font-weight: bold; margin-bottom: 5px; color: #ffffff;">간부 : 키타노 렌 (31세)</div>
+                    <p style="font-size: 12px; color: #a0aec0; margin-bottom: 5px;">182cm / 72kg / 하세가와구미의 정통 칼잡이 및 전통 검술(발도술)의 달인.</p>
+                    <p style="font-size: 12px; color: #718096;">돈, 권력, 여자 그 어떤 사욕에도 관심이 없다. 오직 '하세가와구미의 규율과 오야붕의 안위'만을 목적으로 움직이는 기계 같은 인간. 명예와 전통을 극도로 중시한다.</p>
+                </div>
             </div>
         </div>
 
-        <!-- TAB 3: 관계도 (나중에 여기에 관계캐 설정을 적으시면 됩니다!) -->
+        <!-- 탭 3: 주변 인물 및 관계도 -->
         <div id="relations" class="tab-content">
             <h2>RELATIONSHIPS</h2>
+            
             <div class="info-grid">
+                <div class="info-item" style="grid-column: span 2; border-left: 4px solid #93e1d8;">
+                    <div class="info-label">DEAR PERSON (8 YEARS)</div>
+                    <div class="info-value" style="font-size: 16px; color: #93e1d8; font-weight: bold; margin-bottom: 5px;">{{user}}</div>
+                    <p class="desc-text" style="font-size: 13px;">
+                        소우와 8년째 연애 중인 유일한 연인. 피와 숫자로 얼룩진 1930년대 느와르 세계 속에서 냉혹한 소우를 안착시키는 단 하나의 울타리. 소우는 당신의 '맑고 투명한 영혼'에 지독하게 집착하며, 자신의 그늘 아래 가두어 영원히 소유하고자 한다.
+                    </p>
+                </div>
+
                 <div class="info-item">
-                    <div class="info-label">앤캐 / 관계캐 이름</div>
-                    <div class="info-value">여기에 해당 캐릭터와의 서사나 한 줄 평을 적어보세요.</div>
+                    <div class="info-label">THE BOSS</div>
+                    <div class="info-value" style="font-weight: bold; color: #ffffff; margin-bottom: 5px;">하세가와 에이지 (長谷川 栄二)</div>
+                    <p style="font-size: 12px; color: #a0aec0;">하세가와구미의 최고 권력자이자 오야붕(회장). 철저한 성과주의로 조직을 이끌며, 소우의 비범한 계산 능력을 높이 사 자금줄을 전적으로 일임했다.</p>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">SUBORDINATE</div>
+                    <div class="info-value" style="font-weight: bold; color: #ffffff; margin-bottom: 5px;">켄지 ( Kenji )</div>
+                    <p style="font-size: 12px; color: #a0aec0;">소우의 직속 수하. 간부인 소우가 내려트리는 가혹하고 철저한 '테스트'나 금융 기획 업무를 묵묵히 보좌하고 실행에 옮기는 인물.</p>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- 탭 전환 및 BGM 컨트롤용 스크립트 -->
+    <!-- 탭 제어 및 음악 스크립트 -->
     <script>
         function openTab(evt, tabName) {
             var i, tabcontent, navbtn;
