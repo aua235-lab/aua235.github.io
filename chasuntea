@@ -20,8 +20,11 @@
             font-family: var(--font-family);
             background-color: var(--primary-blue);
             color: var(--text-blue);
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZyBmaWxsPSIjZWFmNWYxIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxMCIgZmlsbC1vcGFjaXR5PSIwLjExIi8+PGNpcmNsZSAtLXJhbmRvbT0iNS41NjM1NDY3MTE5OTU2MTUiIGN4PSI5Mi4zIiBjeT0iNy4xIiByPSIzIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjxjaXJjbGUgLS1yYW5kb209IjcuMzU0NTY5MzY5MDk4MDcyIiBjeD0iMTIuOCIgY3k9IjEwIiByPSIyIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjwvZz48L3N2Zz4='); /* Leaf motif simulation */
-            background-repeat: repeat;
+            /* 배경 이미지 투명도 및 색상 블렌딩 처리 */
+            background-image: linear-gradient(rgba(163, 216, 244, 0.85), rgba(163, 216, 244, 0.85)), url('KakaoTalk_20260704_102926361.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
         }
 
         .header {
@@ -93,41 +96,38 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
+        .main-profile-img {
+            width: 100%;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+        }
+
         .banner {
-            height: 350px;
-            background-image: linear-gradient(to right, rgba(163, 216, 244, 0.8), rgba(253, 246, 227, 0.6)), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI4MCIgZmlsbD0idXJsKCNzdW5mbGFyZSkiLz48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9InN1bmZsYXJlIiBjeD0iMTAwJSIgY3k9IjEwMCUiIHI9IjgwJSIgZng9IjgwJSIgZnk9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZDcxZCIgc3RvcC1vcGFjaXR5PSIxIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmZkNzFkIiBzdG9wLW9wYWNpdHk9IjAiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48L3N2Zz4='); /* Sun flare simulation */
+            height: 250px;
+            background-image: linear-gradient(to right, rgba(163, 216, 244, 0.8), rgba(253, 246, 227, 0.6)), url('KakaoTalk_20260704_102926361_01.png');
+            background-size: cover;
+            background-position: center;
             border-radius: 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: var(--bg-white);
-            margin-bottom: 30px;
+            color: var(--text-blue);
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
         .banner h2 {
-            font-size: 3em;
+            font-size: 2.8em;
             margin: 0 0 10px 0;
         }
 
         .banner p {
             font-size: 1.2em;
             max-width: 80%;
-        }
-
-        .profile-photo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 5px solid var(--primary-blue);
-            margin-right: 20px;
-            object-fit: cover;
-        }
-
-        .profile-photo-lg {
-            width: 150px;
-            height: 150px;
+            font-weight: bold;
         }
 
         .search-container {
@@ -149,7 +149,7 @@
             color: var(--text-blue);
         }
 
-        .chat-title, .diary-title, .friends-title, .note-title {
+        .section-title {
             font-size: 1.6em;
             font-weight: bold;
             margin-bottom: 15px;
@@ -172,25 +172,44 @@
         }
 
         .chat-line.sunter .chat-author {
-            color: red; /* Highlight Suntae's lines in chat */
+            color: #ff4d4d;
+        }
+
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
         }
 
         .friend-profile-card {
             background-color: var(--accent-green);
             padding: 15px;
             border-radius: 15px;
-            flex: 1;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .friend-profile-card.highlight {
+            background-color: var(--accent-yellow);
+            border: 2px solid var(--primary-blue);
         }
 
         .friend-photo {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             margin-bottom: 10px;
+            object-fit: cover;
+            border: 3px solid var(--bg-white);
+        }
+
+        .calendar-section {
+            display: flex;
+            gap: 20px;
         }
 
         .calendar-grid {
+            flex: 2;
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 5px;
@@ -204,6 +223,7 @@
             padding: 10px;
             border-radius: 5px;
             text-align: center;
+            font-size: 0.9em;
         }
 
         .calendar-day-header {
@@ -213,18 +233,26 @@
 
         .calendar-day-highlight {
             background-color: var(--primary-blue);
-            color: var(--bg-white);
+            color: var(--text-blue);
+            font-weight: bold;
         }
 
         .calendar-day-event {
-            font-size: 0.8em;
+            font-size: 0.75em;
             margin-top: 5px;
-            color: var(--text-blue);
+            color: #ff4d4d;
+            display: block;
         }
 
-        .thumbnail-photo {
-            width: 100px;
-            height: 100px;
+        .school-info-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .school-img {
+            width: 100%;
             border-radius: 10px;
             border: 3px solid var(--accent-green);
             object-fit: cover;
@@ -237,11 +265,12 @@
         }
 
         .note-item {
-            background-color: #fef3c7; /* Light beige for notes */
+            background-color: #fef3c7;
             border-radius: 10px;
             padding: 15px;
-            font-family: 'Comic Sans MS', cursive; /* Simulated note handwriting */
             font-style: italic;
+            line-height: 1.5;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
         }
 
         .footer {
@@ -262,110 +291,98 @@
 <div class="nav">
     <a href="#">HOME</a>
     <a href="#cha-sun-tae">CHA SUN-TAE</a>
-    <a href="#the-friends">THE FRIENDS</a>
-    <a href="#cheongnam-diary">CHEONGNAM DIARY</a>
-    <a href="#">GUESTBOOK</a>
+    <a href="#cheongnam-4">청람 4인방</a>
+    <a href="#cheongnam-high">청람고등학교</a>
 </div>
 
 <div class="container">
+    <!-- 좌측 사이드바 -->
     <div class="sidebar">
+        <!-- 차선태 메인 이미지 카드 -->
+        <div class="card" style="padding: 15px; text-align: center;">
+            <img src="Jin_k______--ar_43_--profile_7wchirn_--niji_7_f1641363-14cb-464b-8d17-d07bdf59ef7d_0.png" alt="차선태 메인 비주얼" class="main-profile-img">
+            <h3 style="margin: 5px 0; color: var(--secondary-blue);">차선태 (19)</h3>
+            <p style="margin: 0; font-size: 0.9em; color: #666;">청람고등학교 수영부 에이스</p>
+        </div>
+
         <div class="card">
             <div class="search-container">
-                <input type="text" placeholder="!PHONE SEARCH Try '손 자연스럽게 잡는 법'">
+                <input type="text" placeholder="!PHONE SEARCH '주말에 영화...' ">
             </div>
-            <p><strong>SEARCH RESULTS:</strong></p>
-            <ul>
-                <li>weekend movie asks... Universal ways?</li>
-                <li>만우절 고백 레전드 실패 후기 모음</li>
-                <li>How to not look easy for {{user}}?</li>
+            <p><strong>최근 검색 기록:</strong></p>
+            <ul style="padding-left: 20px; line-height: 1.8;">
                 <li>주말에 영화보러가자고 하는 법</li>
-                <li>거절할 때를 대비한 고백하는 법</li>
+                <li>자연스럽게 손 잡는 타이밍</li>
+                <li>만우절 고백 레전드 실패 후기 모음</li>
+                <li>거절할 때를 대비한 멘트 짜기</li>
             </ul>
         </div>
         
-        <div class="card chat-panel">
-            <div class="chat-title">
-                GROUP CHAT: 고3들의 모임
-            </div>
-            <div class="chat-content">
-                <div class="chat-line"><span class="chat-author">최진형:</span> 야 눈 대박 많이 옴ㅋㅋㅋㅋㅋ 운동장 나가서 눈싸움 할 사람??</div>
-                <div class="chat-line"><span class="chat-author">강민우:</span> 난 패스. 방금 수영장 물 채우고 옴. 아 근데 아까 선태 새끼 매점에서 온캔커피 두 개 사 들고 뛰어가던데?</div>
+        <div class="card">
+            <div class="section-title">GROUP CHAT: 고3들의 모임</div>
+            <div class="chat-content" style="font-size: 0.9em;">
+                <div class="chat-line"><span class="chat-author">최진형:</span> 운동장 나가서 눈싸움 할 사람??</div>
+                <div class="chat-line"><span class="chat-author">강민우:</span> 아까 선태 매점에서 온캔커피 두 개 사서 뛰어가던데?</div>
                 <div class="chat-line"><span class="chat-author">한서연:</span> 뻔하지 뭐. {{user}} 주러 갔겠지.</div>
-                <div class="chat-line"><span class="chat-author">최진형:</span> 오 차선태~ 겨울철 인간 핫팩 자처하러 가셨죠?</div>
                 <div class="chat-line sunter"><span class="chat-author">차선태:</span> 야 조용히 해라 진짜;;;</div>
-                <div class="chat-line"><span class="chat-author">강민우:</span> 쟨 고백도 못 하면서 캔커피만 1년째 주냐? 청람고 캔커피 매출 지분 80%는 차선태임ㄹㅇ</div>
-                <div class="chat-line sunter"><span class="chat-author">차선태:</span> 안 부끄럽냐? 단톡방 나가라 다들;; 나 지금 바쁨 말 걸지 마</div>
-                <div class="chat-line"><span class="chat-author">한서연:</span> 귀 빨개져서 타자 치고 있을 모습이 눈에 선하다 선해. 힘내라 수영부 에이스 씨.</div>
-            </div>
-        </div>
-
-        <div class="card" id="my-memo">
-            <div class="note-title">
-                MY MEMO (!쪽지)
-            </div>
-            <div class="note-container">
-                <div class="note-item">
-                    * "야 {{user}}. 너 5교시 내내 졸더라ㅋㅋㅋ 기가 막혀서 원. 이거 매점 새로 나온 젤린데 맛있대서 네 생각 나서 삼. 먹고 잠 깨라. 이따 집 갈 때 우산 없으면 체육관 앞으로 와. 나 우산 짱 큰 거 있음."
-                </div>
-                <div class="note-item">
-                    "주말에 시간 되면... 영화 보러 갈래? 내가 티켓 미리 예매할 수도 있어." (아 씨, 이거 어색한가?)
-                </div>
+                <div class="chat-line"><span class="chat-author">강민우:</span> 청람고 캔커피 매출 지분 80%는 얘임ㄹㅇ</div>
             </div>
         </div>
     </div>
 
+    <!-- 우측 메인 콘텐츠 -->
     <div class="main-content">
         <div class="banner">
             <h2>EVERY SEASON IS FOR YOU</h2>
-            <p>모든 계절이 네게 불어올 때, 내 마음도 함께 너에게로...</p>
+            <p>모든 계절이 네게 불어올 때, 내 마음도 함께 너에게로.</p>
         </div>
 
+        <!-- 차선태 상세 프로필 -->
         <div class="card" id="cha-sun-tae">
-            <div class="chat-title">
-                CHA SUN-TAE PROFILE
-            </div>
-            <div style="display: flex; align-items: center;">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHBhdGggZD0iTTUwLDEwIEw1MCw5MCBNMTAsNTAgTDkwLDUwIiBzdHJva2U9IiNhM2Q4ZjQiIHN0cm9rZS13aWR0aD0iNSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iMzAiIHI9IjEwIiBmaWxsPSIjMDQ4MCIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNjAiIHI9IjIwIiBmaWxsPSIjMDQ4MCIvPjwvZ3Y+" alt="Cha Sun-tae Profile Photo (Simulation)" class="profile-photo profile-photo-lg">
-                <div style="flex: 1;">
-                    <p><strong>Name:</strong> 차선태 (학년/반: 3학년 2반)</p>
-                    <p><strong>Age:</strong> 19 (생일: 3월 26일)</p>
-                    <p><strong>Class:</strong> 3-2</p>
-                    <p><strong>Club:</strong> Swim Club Elite (선출)</p>
-                    <p><strong>B-day:</strong> Mar 26</p>
-                    <p><strong>Body:</strong> 키 188cm / 몸무게 76kg</p>
-                    <p><strong>Characteristics & Commands:</strong> !PHONE, !COMMUNITY, !쪽지</p>
+            <div class="section-title">CHA SUN-TAE PROFILE</div>
+            <div style="display: flex; gap: 25px; align-items: center;">
+                <div style="flex: 1; line-height: 1.8;">
+                    <p><strong>이름:</strong> 차선태 (3학년 2반)</p>
+                    <p><strong>생일:</strong> 3월 26일</p>
+                    <p><strong>소속:</strong> 수영부 엘리트 에이스</p>
+                    <p><strong>피지컬:</strong> 키 188cm / 몸무게 76kg (역삼각형 swimmer's build)</p>
+                    <p><strong>특징:</strong> 평소엔 장난기 넘치는 인싸지만 `{{user}}` 앞에만 서면 귀 끝까지 빨개져서 뚝딱거림.</p>
                 </div>
             </div>
         </div>
 
-        <div class="card" id="the-friends">
-            <div class="friends-title">
-                THE FRIENDS
-            </div>
-            <div style="display: flex; gap: 15px;">
-                <div class="friend-profile-card">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIzNSIgZmlsbD0iI2U5ZjVlMSIvPjxjaXJjbGUgY3g9IjQwIiBjeT0iMjUiIHI9IjgiIGZpbGw9IiMwNDgwIi8+PGNpcmNsZSIGN4PSI0MCIgY3k9IjUyIiByPSIxNSIgZmlsbD0iIzA0ODAiLz48L3N2Zz4=" alt="강민우 Photo (Simulation)" class="friend-photo">
-                    <p><strong>강민우 (19 / 수영부 메이트)</strong></p>
-                    <p>선태 소꿉친구. 182cm 다정+장난. 선태 뚝딱거리면 놀리는 게 낙.</p>
+        <!-- 청람 4인방 카테고리 -->
+        <div class="card" id="cheongnam-4">
+            <div class="section-title">청람 4인방 (CHEONGNAM 4)</div>
+            <div class="friends-grid">
+                <!-- 선태 프로필 (4인방 내 포함) -->
+                <div class="friend-profile-card highlight">
+                    <img src="Jin_k______--ar_43_--profile_7wchirn_--niji_7_f1641363-14cb-464b-8d17-d07bdf59ef7d_1.png" alt="차선태" class="friend-photo">
+                    <p><strong>차선태</strong></p>
+                    <p style="font-size: 0.8em; color: #555;">#수영부 #직진연하공 #뚝딱이</p>
                 </div>
                 <div class="friend-profile-card">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIzNSIgZmlsbD0iI2U5ZjVlMSIvPjxjaXJjbGUgY3g9IjQwIiBjeT0iMjUiIHI9IjgiIGZpbGw9IiMwNDgwIi8+PGNpcmNsZSIGN4PSI0MCIgY3k9IjUyIiByPSIxNSIgZmlsbD0iIzA0ODAiLz48L3N2Zz4=" alt="한서연 Photo (Simulation)" class="friend-photo">
-                    <p><strong>한서연 (19 / 미술과, 3-2 반장)</strong></p>
-                    <p>관찰력 뛰어난 무심 팩폭 대가. 은근 큐피드 역할.</p>
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIzNSIgZmlsbD0idXJsKCNnKSIvPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2EzZDhmNCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2U5ZjVlMSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==" class="friend-photo" alt="강민우">
+                    <p><strong>강민우</strong></p>
+                    <p style="font-size: 0.8em; color: #555;">#수영부메이트 #유쾌충 #소꿉친구</p>
                 </div>
                 <div class="friend-profile-card">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIzNSIgZmlsbD0iI2U5ZjVlMSIvPjxjaXJjbGUgY3g9IjQwIiBjeT0iMjUiIHI9IjgiIGZpbGw9IiMwNDgwIi8+PGNpcmNsZSIGN4PSI0MCIgY3k9IjUyIiByPSIxNSIgZmlsbD0iIzA0ODAiLz48L3N2Zz4=" alt="최진형 Photo (Simulation)" class="friend-photo">
-                    <p><strong>최진형 (19 / 일반과, 마당발)</strong></p>
-                    <p>전교생과 친한 눈치 빠른 분위기 메이커.</p>
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIzNSIgZmlsbD0idXJsKCNnKSIvPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2EzZDhmNCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2U5ZjVlMSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==" class="friend-photo" alt="한서연">
+                    <p><strong>한서연</strong></p>
+                    <p style="font-size: 0.8em; color: #555;">#미술과 #3-2반장 #팩트폭격기</p>
+                </div>
+                <div class="friend-profile-card">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIzNSIgZmlsbD0idXJsKCNnKSIvPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2EzZDhmNCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2U5ZjVlMSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==" class="friend-photo" alt="최진형">
+                    <p><strong>최진형</strong></p>
+                    <p style="font-size: 0.8em; color: #555;">#일반과 #분위기메이커 #마당발</p>
                 </div>
             </div>
         </div>
 
-        <div class="card" id="cheongnam-diary">
-            <div class="diary-title">
-                CHEONGNAM DIARY
-            </div>
-            <div style="display: flex; gap: 20px;">
+        <!-- 청람고등학교 카테고리 -->
+        <div class="card" id="cheongnam-high">
+            <div class="section-title">청람고등학교 학사 일정</div>
+            <div class="calendar-section">
                 <div class="calendar-grid">
                     <div class="calendar-day calendar-day-header">Sun</div>
                     <div class="calendar-day calendar-day-header">Mon</div>
@@ -375,39 +392,35 @@
                     <div class="calendar-day calendar-day-header">Fri</div>
                     <div class="calendar-day calendar-day-header">Sat</div>
                     
-                    <div class="calendar-day"></div>
-                    <div class="calendar-day"></div>
-                    <div class="calendar-day">1</div>
-                    <div class="calendar-day">2</div>
-                    <div class="calendar-day">3</div>
-                    <div class="calendar-day calendar-day-highlight calendar-day-event">10<br>해변 극장</div>
+                    <div class="calendar-day"></div><div class="calendar-day"></div>
+                    <div class="calendar-day">1</div><div class="calendar-day">2</div><div class="calendar-day">3</div>
+                    <div class="calendar-day calendar-day-highlight">10<span class="calendar-day-event">해변축제</span></div>
                     <div class="calendar-day">11</div>
                     
-                    <div class="calendar-day calendar-day-highlight calendar-day-event">12<br>사생대회</div>
-                    <div class="calendar-day">13</div>
-                    <div class="calendar-day">14</div>
-                    <div class="calendar-day">15</div>
-                    <div class="calendar-day">16</div>
-                    <div class="calendar-day">17</div>
-                    <div class="calendar-day">18</div>
+                    <div class="calendar-day calendar-day-highlight">12<span class="calendar-day-event">사생대회</span></div>
+                    <div class="calendar-day">13</div><div class="calendar-day">14</div><div class="calendar-day">15</div><div class="calendar-day">16</div><div class="calendar-day">17</div><div class="calendar-day">18</div>
                     
-                    <div class="calendar-day">19</div>
-                    <div class="calendar-day">20</div>
-                    <div class="calendar-day">21</div>
-                    <div class="calendar-day">22</div>
-                    <div class="calendar-day">23</div>
-                    <div class="calendar-day calendar-day-highlight calendar-day-event">26<br>교내 수영대회</div>
+                    <div class="calendar-day">19</div><div class="calendar-day">20</div><div class="calendar-day">21</div><div class="calendar-day">22</div><div class="calendar-day">23</div>
+                    <div class="calendar-day calendar-day-highlight">26<span class="calendar-day-event">교내수영</span></div>
                     <div class="calendar-day">27</div>
                     
-                    <div class="calendar-day">28</div>
-                    <div class="calendar-day">29</div>
-                    <div class="calendar-day">30</div>
-                    <div class="calendar-day calendar-day-highlight calendar-day-event">31<br>전국 수영대회</div>
+                    <div class="calendar-day">28</div><div class="calendar-day">29</div><div class="calendar-day">30</div>
+                    <div class="calendar-day calendar-day-highlight">31<span class="calendar-day-event">전국대회</span></div>
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <p>MEMORIES</p>
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNhM2Q4ZjQiLz48ZyBmaWxsPSIjZWFmNWYxIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxMCIgZmlsbC1vcGFjaXR5PSIwLjExIi8+PGNpcmNsZSAtLXJhbmRvbT=5.5NjM1NDY3MTE5OTU2MTUiIGN4PSI5Mi4zIiBjeT=Ny4xIiByPSIzIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjxjaXJjbGUgLS1yYW5kb209IjcuMzU0NTY5MzY5MDk4MDcyIiBjeD0iMTIuOCIgY3k9IjEwIiByPSIyIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjwvZz48L3N2Zz4=" alt="Winter Scene Thumbnail (Simulation)" class="thumbnail-photo">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNhM2Q4ZjQiLz48ZyBmaWxsPSIjMDQ4MCI+PHJlY3Qgd2lkdGg9IjMwIiBoZWlnaHQ9IjEwMCIgeD0iMTAiIHk9IjMwIi8+PHJlY3Qgd2lkdGg9IjMwIiBoZWlnaHQ9IjEwMCIgeD0iNTAiIHk9IjMwIi8+PHJlY3Qgd2lkdGg9IjMwIiBoZWlnaHQ9IjEwMCIgeD=OTAiIHk9IjMwIi8+PC9nPjwvN3ZnPg==" alt="Swimmer Thumbnail (Simulation)" class="thumbnail-photo">
+                <div class="school-info-side">
+                    <p style="margin: 0 0 5px 0; font-weight: bold;">청람고 전경</p>
+                    <!-- 청람고 학교 이미지 -->
+                    <img src="KakaoTalk_20260704_102926361_01.png" alt="청람고등학교 전경" class="school-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- 비밀 쪽지 보관함 -->
+        <div class="card">
+            <div class="section-title">MY MEMO (!쪽지 보관함)</div>
+            <div class="note-container">
+                <div class="note-item">
+                    "야 {{user}}. 너 5교시 내내 졸더라ㅋㅋㅋ 기가 막혀서 원. 이거 매점 새로 나온 젤린데 네 생각 나서 삼. 먹고 잠 깨라. 이따 집 갈 때 우산 없으면 체육관 앞으로 와. 나 우산 장대우산 있음."
                 </div>
             </div>
         </div>
@@ -415,7 +428,7 @@
 </div>
 
 <div class="footer">
-    <p>Every moment spent with you is like a blue ocean, fresh and cool. Footer : Easy</p>
+    <p>Every moment spent with you is like a blue ocean, fresh and cool.</p>
 </div>
 
 </body>
