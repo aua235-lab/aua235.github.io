@@ -20,10 +20,34 @@
             font-family: var(--font-family);
             background-color: var(--primary-blue);
             color: var(--text-blue);
-            background-image: linear-gradient(rgba(163, 216, 244, 0.85), rgba(163, 216, 244, 0.85)), url('KakaoTalk_20260704_102926361.png');
+            /* 전체 배경 이미지 교체 및 불투명 레이어 블렌딩 */
+            background-image: linear-gradient(rgba(163, 216, 244, 0.85), rgba(163, 216, 244, 0.85)), url('/Jin_k______--ar_43_--profile_7wchirn_--niji_7_f1641363-14cb-464b-8d17-d07bdf59ef7d_1.png');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
+            position: relative;
+        }
+
+        /* 배경 반짝이는 빛 모션 레이어 */
+        .sparkle-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+            background-image: 
+                radial-gradient(circle, #fff 10%, transparent 11%),
+                radial-gradient(circle, #fff 15%, transparent 16%),
+                radial-gradient(circle, #fff 8%, transparent 9%);
+            background-size: 400px 400px, 350px 350px, 500px 500px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            animation: twinkle 6s infinite alternate ease-in-out;
+            opacity: 0.4;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.6; }
+            100% { opacity: 0.3; transform: scale(1.03); }
         }
 
         .header {
@@ -40,7 +64,6 @@
             font-weight: bold;
         }
 
-        /* 네비게이션 & BGM 영역 */
         .nav-container {
             background-color: var(--accent-yellow);
             padding: 10px 20px;
@@ -69,7 +92,6 @@
             color: #4CAF50;
         }
 
-        /* LP판 뮤직 플레이어 스타일 */
         .lp-player {
             display: flex;
             align-items: center;
@@ -81,6 +103,7 @@
             border: 2px solid var(--primary-blue);
             user-select: none;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            z-index: 1000;
         }
 
         .lp-disk {
@@ -107,7 +130,6 @@
             color: var(--text-blue);
         }
 
-        /* 음악 재생 중일 때 회전 애니메이션 */
         .lp-player.playing .lp-disk {
             animation: spin 3s linear infinite;
         }
@@ -116,7 +138,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* 레이아웃 구조 */
         .container {
             display: flex;
             gap: 30px;
@@ -164,7 +185,7 @@
 
         .banner {
             height: 220px;
-            background-image: linear-gradient(to right, rgba(163, 216, 244, 0.85), rgba(253, 246, 227, 0.75)), url('KakaoTalk_20260704_102926361_01.png');
+            background-image: linear-gradient(to right, rgba(163, 216, 244, 0.85), rgba(253, 246, 227, 0.75)), url('/KakaoTalk_20260704_102926361_01.png');
             background-size: cover;
             background-position: center;
             border-radius: 20px;
@@ -235,7 +256,6 @@
             color: #ff4d4d;
         }
 
-        /* 4인방 그리드 구조 */
         .friends-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -264,63 +284,54 @@
             border: 3px solid var(--bg-white);
         }
 
-        /* 달력 세션 구조 */
-        .calendar-section {
-            display: flex;
-            gap: 20px;
-        }
-
-        .calendar-grid {
-            flex: 2;
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            background-color: var(--accent-yellow);
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .calendar-day {
-            background-color: var(--bg-white);
-            padding: 8px 4px;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 0.85em;
-            min-height: 45px;
-        }
-
-        .calendar-day-header {
-            font-weight: bold;
-            color: var(--secondary-blue);
-            min-height: auto;
-        }
-
-        .calendar-day-highlight {
-            background-color: var(--primary-blue);
-            color: var(--text-blue);
-            font-weight: bold;
-        }
-
-        .calendar-day-event {
-            font-size: 0.7em;
-            margin-top: 3px;
-            color: #ff4d4d;
-            display: block;
-            word-break: keep-all;
-        }
-
-        .school-info-side {
-            flex: 1;
+        /* 📅 학사일정 타임라인 UI 스타일 */
+        .timeline {
+            position: relative;
+            padding-left: 25px;
+            border-left: 3px solid var(--primary-blue);
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 20px;
+            margin: 10px 0;
         }
 
-        .school-img {
-            width: 100%;
-            border-radius: 10px;
-            border: 3px solid var(--accent-green);
-            object-fit: cover;
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--secondary-blue);
+            border: 3px solid var(--bg-white);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--secondary-blue);
+            font-size: 0.95em;
+            margin-bottom: 2px;
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            font-size: 1.05em;
+            color: var(--text-blue);
+        }
+
+        .timeline-desc {
+            font-size: 0.85em;
+            color: #555;
+            margin-top: 4px;
+            background-color: var(--accent-green);
+            padding: 8px 12px;
+            border-radius: 8px;
+            line-height: 1.4;
         }
 
         .note-item {
@@ -340,9 +351,6 @@
             font-size: 0.9em;
         }
 
-        /* ==========================================================================
-           📱 모바일 및 태블릿 최적화 미디어 쿼리 (Responsive Design)
-           ========================================================================== */
         @media (max-width: 1024px) {
             .friends-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -379,18 +387,6 @@
             .banner p {
                 font-size: 0.95em;
             }
-
-            .calendar-section {
-                flex-direction: column;
-            }
-
-            .school-info-side {
-                align-items: center;
-            }
-
-            .school-img {
-                max-width: 100%;
-            }
             
             .card {
                 padding: 18px;
@@ -400,14 +396,15 @@
 </head>
 <body>
 
-<!-- 오디오 태그 주입 -->
-<audio id="bgm" src="선태.mp3" loop></audio>
+<div class="sparkle-overlay"></div>
+
+<!-- 음악 소스 -->
+<audio id="bgm" src="/선태.mp3" loop></audio>
 
 <div class="header">
     <h1>SUNTAE'S DIGITAL PORTFOLIO</h1>
 </div>
 
-<!-- 상단 네비게이션 바 및 LP 아이콘 플레이어 -->
 <div class="nav-container">
     <div class="nav">
         <a href="#">HOME</a>
@@ -416,7 +413,6 @@
         <a href="#cheongnam-high">청람고등학교</a>
     </div>
     
-    <!-- LP플레이어 버턴 -->
     <div class="lp-player" id="lpButton" onclick="toggleAudio()">
         <div class="lp-disk"></div>
         <span class="lp-text" id="lpText">BGM PLAY</span>
@@ -424,16 +420,15 @@
 </div>
 
 <div class="container">
-    <!-- 좌측 사이드바 구역 -->
+    <!-- 좌측 사이드바 -->
     <div class="sidebar">
-        <!-- 차선태 메인 이미지 카드 -->
         <div class="card" style="text-align: center;">
-            <img src="Jin_k______--ar_43_--profile_7wchirn_--niji_7_f1641363-14cb-464b-8d17-d07bdf59ef7d_0.png" alt="차선태 메인 비주얼" class="main-profile-img">
+            <!-- 차선태 프로필 이미지 교체 -->
+            <img src="/KakaoTalk_20260704_102926361.png" alt="차선태 메인 비주얼" class="main-profile-img">
             <h3 style="margin: 5px 0; color: var(--secondary-blue);">차선태 (19)</h3>
             <p style="margin: 0; font-size: 0.9em; color: #666;">청람고등학교 수영부 에이스</p>
         </div>
 
-        <!-- !검색 커맨드 카드 -->
         <div class="card">
             <div class="search-container">
                 <input type="text" placeholder="!PHONE SEARCH '주말에 영화...' " readonly>
@@ -447,9 +442,9 @@
             </ul>
         </div>
         
-        <!-- 단톡방 카드 -->
+        <!-- 단톡 명칭 변경 및 Group Chat 제거 -->
         <div class="card">
-            <div class="section-title">GROUP CHAT: 고3들의 모임</div>
+            <div class="section-title">ㅊx2ㄱㅎ</div>
             <div class="chat-content" style="font-size: 0.9em;">
                 <div class="chat-line"><span class="chat-author">최진형:</span> 운동장 나가서 눈싸움 할 사람??</div>
                 <div class="chat-line"><span class="chat-author">강민우:</span> 아까 선태 매점에서 온캔커피 두 개 사서 뛰어가던데?</div>
@@ -460,32 +455,30 @@
         </div>
     </div>
 
-    <!-- 우측 메인 콘텐츠 구역 -->
+    <!-- 우측 메인 콘텐츠 -->
     <div class="main-content">
         <div class="banner">
             <h2>EVERY SEASON IS FOR YOU</h2>
             <p>모든 계절이 네게 불어올 때, 내 마음도 함께 너에게로.</p>
         </div>
 
-        <!-- 차선태 상세 정보 프로필 -->
+        <!-- 프로필 상세 (역삼각형 문구 제거) -->
         <div class="card" id="cha-sun-tae">
             <div class="section-title">CHA SUN-TAE PROFILE</div>
             <div style="line-height: 1.8;">
                 <p><strong>이름:</strong> 차선태 (3학년 2반)</p>
                 <p><strong>생일:</strong> 3월 26일</p>
                 <p><strong>소속:</strong> 수영부 엘리트 에이스</p>
-                <p><strong>피지컬:</strong> 키 188cm / 몸무게 76kg (역삼각형 swimmer's build)</p>
+                <p><strong>피지컬:</strong> 키 188cm / 몸무게 76kg</p>
                 <p><strong>특징:</strong> 평소엔 장난기 넘치는 인싸지만 `{{user}}` 앞에만 서면 귀 끝까지 빨개져서 뚝딱거림.</p>
             </div>
         </div>
 
-        <!-- 청람 4인방 카테고리 -->
         <div class="card" id="cheongnam-4">
             <div class="section-title">청람 4인방 (CHEONGNAM 4)</div>
             <div class="friends-grid">
-                <!-- 선태 미니프로필 이미지 교체 -->
                 <div class="friend-profile-card highlight">
-                    <img src="Jin_k______--ar_43_--profile_7wchirn_--niji_7_f1641363-14cb-464b-8d17-d07bdf59ef7d_1.png" alt="차선태" class="friend-photo">
+                    <img src="/Jin_k______--ar_43_--profile_7wchirn_--niji_7_f1641363-14cb-464b-8d17-d07bdf59ef7d_1.png" alt="차선태" class="friend-photo">
                     <p><strong>차선태</strong></p>
                     <p style="font-size: 0.75em; color: #555;">#수영부 #뚝딱이</p>
                 </div>
@@ -507,42 +500,55 @@
             </div>
         </div>
 
-        <!-- 청람고등학교 학사일정 및 풍경 카테고리 -->
+        <!-- 📅 학사 일정 타임라인 버전 교체 -->
         <div class="card" id="cheongnam-high">
             <div class="section-title">청람고등학교 학사 일정</div>
-            <div class="calendar-section">
-                <div class="calendar-grid">
-                    <div class="calendar-day calendar-day-header">Sun</div>
-                    <div class="calendar-day calendar-day-header">Mon</div>
-                    <div class="calendar-day calendar-day-header">Tue</div>
-                    <div class="calendar-day calendar-day-header">Wed</div>
-                    <div class="calendar-day calendar-day-header">Thu</div>
-                    <div class="calendar-day calendar-day-header">Fri</div>
-                    <div class="calendar-day calendar-day-header">Sat</div>
-                    
-                    <div class="calendar-day"></div><div class="calendar-day"></div>
-                    <div class="calendar-day">1</div><div class="calendar-day">2</div><div class="calendar-day">3</div>
-                    <div class="calendar-day calendar-day-highlight">10<span class="calendar-day-event">해변축제</span></div>
-                    <div class="calendar-day">11</div>
-                    
-                    <div class="calendar-day calendar-day-highlight">12<span class="calendar-day-event">사생대회</span></div>
-                    <div class="calendar-day">13</div><div class="calendar-day">14</div><div class="calendar-day">15</div><div class="calendar-day">16</div><div class="calendar-day">17</div><div class="calendar-day">18</div>
-                    
-                    <div class="calendar-day">19</div><div class="calendar-day">20</div><div class="calendar-day">21</div><div class="calendar-day">22</div><div class="calendar-day">23</div>
-                    <div class="calendar-day calendar-day-highlight">26<span class="calendar-day-event">교내수영</span></div>
-                    <div class="calendar-day">27</div>
-                    
-                    <div class="calendar-day">28</div><div class="calendar-day">29</div><div class="calendar-day">30</div>
-                    <div class="calendar-day calendar-day-highlight">31<span class="calendar-day-event">전국대회</span></div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">3월 2일</div>
+                    <div class="timeline-title">입학식</div>
                 </div>
-                <div class="school-info-side">
-                    <p style="margin: 0 0 5px 0; font-weight: bold; font-size: 0.9em;">교정 풍경</p>
-                    <img src="KakaoTalk_20260704_102926361_01.png" alt="청람고등학교 전경" class="school-img">
+                <div class="timeline-item">
+                    <div class="timeline-date">3월 3일 ~ 3월 15일</div>
+                    <div class="timeline-title">동아리 가입 기간</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">4월 12일</div>
+                    <div class="timeline-title">사생대회</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">6월 10일</div>
+                    <div class="timeline-title">청람 해변 야외 극장 (영화제)</div>
+                    <div class="timeline-desc">학교 운동장에 대형 스크린을 설치하고 모두 함께 영화를 보는 청람고만의 낭만적인 전통.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">7월</div>
+                    <div class="timeline-title">1학기 기말고사 기간</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">7월 26일</div>
+                    <div class="timeline-title">교내 수영대회 (반 대항전)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">8월 31일</div>
+                    <div class="timeline-title">대통령배 전국 수영대회</div>
+                    <div class="timeline-desc">반 대항전에서 우수한 성적을 지닌 학생들이 출전한다. 1년 중 가장 큰 수영대회.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">10월 10일</div>
+                    <div class="timeline-title">청람제 (학교 축제)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">12월 6일</div>
+                    <div class="timeline-title">수능</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">12월 15일 ~ 12월 17일</div>
+                    <div class="timeline-title">졸업여행</div>
                 </div>
             </div>
         </div>
 
-        <!-- !쪽지 내용 보관함 -->
         <div class="card">
             <div class="section-title">MY MEMO (!쪽지 보관함)</div>
             <div class="note-container">
@@ -558,26 +564,49 @@
     <p>Every moment spent with you is like a blue ocean, fresh and cool.</p>
 </div>
 
-<!-- 오디오 제어 스크립트 -->
+<!-- 🎵 오디오 자동재생 및 터치 핸들링 스크립트 -->
 <script>
     const audio = document.getElementById('bgm');
     const lpButton = document.getElementById('lpButton');
     const lpText = document.getElementById('lpText');
 
+    function updatePlayState() {
+        lpButton.classList.add('playing');
+        lpText.innerText = "BGM STOP";
+    }
+
+    function updatePauseState() {
+        lpButton.classList.remove('playing');
+        lpText.innerText = "BGM PLAY";
+    }
+
     function toggleAudio() {
         if (audio.paused) {
-            audio.play().then(() => {
-                lpButton.classList.add('playing');
-                lpText.innerText = "BGM STOP";
-            }).catch(error => {
-                alert("브라우저 보안 정책으로 인해 먼저 화면을 클릭한 뒤 재생해 주세요!");
-            });
+            audio.play().then(updatePlayState);
         } else {
             audio.pause();
-            lpButton.classList.remove('playing');
-            lpText.innerText = "BGM PLAY";
+            updatePauseState();
         }
     }
+
+    // 브라우저 정책 우회용 자동재생 함수
+    function initiateAutoplay() {
+        audio.play()
+            .then(updatePlayState)
+            .catch(() => {
+                console.log("Autoplay blocked by browser. Activating touch listener.");
+            });
+    }
+
+    // 페이지 접속 시 재생 시도
+    window.addEventListener('DOMContentLoaded', initiateAutoplay);
+
+    // 페이지 어디든 첫 클릭 시 바로 재생 유도
+    document.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play().then(updatePlayState);
+        }
+    }, { once: true }); // 이벤트가 한 번만 발생하고 해제되도록 설정
 </script>
 
 </body>
