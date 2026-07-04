@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>차선태의 디지털 포트폴리오 - Cheongnam Diary</title>
     <style>
+        /* 동글동글하고 귀여운 구글 폰트 불러오기 */
+        @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&display=swap');
+
         :root {
             --primary-blue: #a3d8f4;
             --secondary-blue: #1e3a8a;
@@ -12,7 +15,7 @@
             --bg-white: #ffffff;
             --accent-yellow: #fdf6e3;
             --accent-green: #e9f5e1;
-            --font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            --font-family: 'Gaegu', 'Gowun Dodum', 'Malgun Gothic', sans-serif;
         }
 
         body {
@@ -20,34 +23,57 @@
             font-family: var(--font-family);
             background-color: var(--primary-blue);
             color: var(--text-blue);
-            /* 전체 배경 이미지 교체 및 불투명 레이어 블렌딩 */
-            background-image: linear-gradient(rgba(163, 216, 244, 0.85), rgba(163, 216, 244, 0.85)), url('/Jin_k______--ar_43_--profile_7wchirn_--niji_7_f1641363-14cb-464b-8d17-d07bdf59ef7d_1.png');
+            /* 전체 배경 이미지 교체 및 은은한 블렌딩 */
+            background-image: linear-gradient(rgba(163, 216, 244, 0.82), rgba(163, 216, 244, 0.82)), url('/Jin_k______--ar_43_--profile_7wchirn_--niji_7_f1641363-14cb-464b-8d17-d07bdf59ef7d_1.png');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
             position: relative;
+            font-size: 1.15em; /* 폰트 특성상 가독성을 위해 살짝 키움 */
         }
 
-        /* 배경 반짝이는 빛 모션 레이어 */
-        .sparkle-overlay {
+        /* 🫧 은은하고 몽글몽글한 물방울 모션 레이어 */
+        .water-bubble-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none;
-            z-index: 999;
+            z-index: 997;
             background-image: 
-                radial-gradient(circle, #fff 10%, transparent 11%),
-                radial-gradient(circle, #fff 15%, transparent 16%),
-                radial-gradient(circle, #fff 8%, transparent 9%);
-            background-size: 400px 400px, 350px 350px, 500px 500px;
-            background-position: 0 0, 40px 60px, 130px 270px;
-            animation: twinkle 6s infinite alternate ease-in-out;
-            opacity: 0.4;
+                radial-gradient(circle, rgba(255,255,255,0.5) 8%, transparent 9%),
+                radial-gradient(circle, rgba(255,255,255,0.4) 12%, transparent 13%),
+                radial-gradient(circle, rgba(255,255,255,0.6) 6%, transparent 7%);
+            background-size: 450px 450px, 380px 380px, 520px 520px;
+            background-position: 0 0, 60px 40px, 150px 290px;
+            animation: bubbleFloat 10s infinite alternate ease-in-out;
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0.2; transform: scale(1); }
-            50% { opacity: 0.6; }
-            100% { opacity: 0.3; transform: scale(1.03); }
+        @keyframes bubbleFloat {
+            0% { transform: translateY(0) scale(1); opacity: 0.4; }
+            100% { transform: translateY(-30px) scale(1.04); opacity: 0.7; }
+        }
+
+        /* ✨ 빛에 반사되는 작은 레인보우 스파클 모션 */
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            /* 무지개빛 그라데이션 텍스트 처리 */
+            background: linear-gradient(45deg, #ff7675, #ffeaa7, #55efc4, #74b9ff, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: sparkleTwinkle 3.5s infinite ease-in-out;
+            opacity: 0;
+            font-weight: bold;
+        }
+        .s1 { top: 12%; left: 8%; animation-delay: 0s; font-size: 22px; }
+        .s2 { top: 38%; left: 88%; animation-delay: 0.7s; font-size: 30px; }
+        .s3 { top: 72%; left: 12%; animation-delay: 1.4s; font-size: 24px; }
+        .s4 { top: 22%; left: 72%; animation-delay: 2.1s; font-size: 19px; }
+        .s5 { top: 64%; left: 45%; animation-delay: 2.8s; font-size: 26px; }
+
+        @keyframes sparkleTwinkle {
+            0%, 100% { transform: scale(0.4) rotate(0deg); opacity: 0; filter: drop-shadow(0 0 0px #fff); }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.9; filter: drop-shadow(0 0 5px rgba(255,255,255,0.9)); }
         }
 
         .header {
@@ -227,6 +253,7 @@
             font-size: 1em;
             color: var(--text-blue);
             width: 100%;
+            font-family: var(--font-family);
         }
 
         .section-title {
@@ -284,7 +311,7 @@
             border: 3px solid var(--bg-white);
         }
 
-        /* 📅 학사일정 타임라인 UI 스타일 */
+        /* 📅 학사일정 타임라인 UI 디자인 */
         .timeline {
             position: relative;
             padding-left: 25px;
@@ -314,20 +341,20 @@
         .timeline-date {
             font-weight: bold;
             color: var(--secondary-blue);
-            font-size: 0.95em;
+            font-size: 1.05em;
             margin-bottom: 2px;
         }
 
         .timeline-title {
             font-weight: bold;
-            font-size: 1.05em;
+            font-size: 1.1em;
             color: var(--text-blue);
         }
 
         .timeline-desc {
-            font-size: 0.85em;
-            color: #555;
-            margin-top: 4px;
+            font-size: 0.9em;
+            color: #444;
+            margin-top: 5px;
             background-color: var(--accent-green);
             padding: 8px 12px;
             border-radius: 8px;
@@ -396,9 +423,13 @@
 </head>
 <body>
 
-<div class="sparkle-overlay"></div>
+<div class="water-bubble-overlay"></div>
+<div class="sparkle s1">✦</div>
+<div class="sparkle s2">✦</div>
+<div class="sparkle s3">✦</div>
+<div class="sparkle s4">✦</div>
+<div class="sparkle s5">✦</div>
 
-<!-- 음악 소스 -->
 <audio id="bgm" src="/선태.mp3" loop></audio>
 
 <div class="header">
@@ -420,10 +451,8 @@
 </div>
 
 <div class="container">
-    <!-- 좌측 사이드바 -->
     <div class="sidebar">
         <div class="card" style="text-align: center;">
-            <!-- 차선태 프로필 이미지 교체 -->
             <img src="/KakaoTalk_20260704_102926361.png" alt="차선태 메인 비주얼" class="main-profile-img">
             <h3 style="margin: 5px 0; color: var(--secondary-blue);">차선태 (19)</h3>
             <p style="margin: 0; font-size: 0.9em; color: #666;">청람고등학교 수영부 에이스</p>
@@ -442,7 +471,6 @@
             </ul>
         </div>
         
-        <!-- 단톡 명칭 변경 및 Group Chat 제거 -->
         <div class="card">
             <div class="section-title">ㅊx2ㄱㅎ</div>
             <div class="chat-content" style="font-size: 0.9em;">
@@ -455,14 +483,12 @@
         </div>
     </div>
 
-    <!-- 우측 메인 콘텐츠 -->
     <div class="main-content">
         <div class="banner">
             <h2>EVERY SEASON IS FOR YOU</h2>
             <p>모든 계절이 네게 불어올 때, 내 마음도 함께 너에게로.</p>
         </div>
 
-        <!-- 프로필 상세 (역삼각형 문구 제거) -->
         <div class="card" id="cha-sun-tae">
             <div class="section-title">CHA SUN-TAE PROFILE</div>
             <div style="line-height: 1.8;">
@@ -478,7 +504,7 @@
             <div class="section-title">청람 4인방 (CHEONGNAM 4)</div>
             <div class="friends-grid">
                 <div class="friend-profile-card highlight">
-                    <img src="/Jin_k______--ar_43_--profile_7wchirn_--niji_7_f1641363-14cb-464b-8d17-d07bdf59ef7d_1.png" alt="차선태" class="friend-photo">
+                    <img src="/KakaoTalk_20260704_102926361.png" alt="차선태" class="friend-photo">
                     <p><strong>차선태</strong></p>
                     <p style="font-size: 0.75em; color: #555;">#수영부 #뚝딱이</p>
                 </div>
@@ -500,7 +526,6 @@
             </div>
         </div>
 
-        <!-- 📅 학사 일정 타임라인 버전 교체 -->
         <div class="card" id="cheongnam-high">
             <div class="section-title">청람고등학교 학사 일정</div>
             <div class="timeline">
@@ -564,7 +589,6 @@
     <p>Every moment spent with you is like a blue ocean, fresh and cool.</p>
 </div>
 
-<!-- 🎵 오디오 자동재생 및 터치 핸들링 스크립트 -->
 <script>
     const audio = document.getElementById('bgm');
     const lpButton = document.getElementById('lpButton');
@@ -589,24 +613,21 @@
         }
     }
 
-    // 브라우저 정책 우회용 자동재생 함수
-    function initiateAutoplay() {
+    // 1단계: DOM이 세팅되면 무조건 바로 플레이 시도
+    window.addEventListener('DOMContentLoaded', () => {
         audio.play()
             .then(updatePlayState)
             .catch(() => {
-                console.log("Autoplay blocked by browser. Activating touch listener.");
+                console.log("Autoplay waiting for user interaction...");
             });
-    }
+    });
 
-    // 페이지 접속 시 재생 시도
-    window.addEventListener('DOMContentLoaded', initiateAutoplay);
-
-    // 페이지 어디든 첫 클릭 시 바로 재생 유도
+    // 2단계: 브라우저가 자동 차단했을 때를 대비해, 사용자가 최초로 화면 어디든 누르는 즉시 바로 플레이
     document.addEventListener('click', () => {
         if (audio.paused) {
             audio.play().then(updatePlayState);
         }
-    }, { once: true }); // 이벤트가 한 번만 발생하고 해제되도록 설정
+    }, { once: true }); // 단 한 번만 실행하고 소멸하도록 세팅
 </script>
 
 </body>
