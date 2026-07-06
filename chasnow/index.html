@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>오령국 ｜ 청해 차씨 가주 차설하</title>
     <style>
-        /* 가독성을 극대화한 동양풍 프리미엄 Serif 웹폰트 */
+        /* 모바일 가독성을 최대로 높인 고급 동양풍 Serif 웹폰트 */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;800&display=swap');
         
         * {
@@ -25,22 +25,22 @@
             word-break: keep-all; 
         }
 
-        /* [선명도 상향] 고화질 배경 이미지 레이어 (파일명: background.png) */
+        /* [경로 수정] 한 칸 위 상위 폴더(../)에 있는 배경 이미지 정확히 로드 */
         #bg-layer {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url("background.png");
+            background-image: url("../Jin_k_an_epic_majestic_East_Asian_mountain_palace_complex_per_128f8123-3a96-4605-b655-6bd3b83e7571_2.png");
             background-size: cover;
             background-position: center;
-            opacity: 0.55; /* 배경이 확실히 눈에 보이도록 투명도 최적화 */
+            opacity: 0.5; /* 배경이 시각적으로 확실히 드러나도록 투명도 최적화 */
             z-index: -2;
             pointer-events: none;
         }
 
-        /* 텍스트 가독성을 지켜주는 블루 블랙 안개 그라데이션 */
+        /* 텍스트 가독성을 안전하게 확보해주는 블루 블랙 안개 그라데이션 */
         #bg-overlay {
             position: fixed;
             top: 0;
@@ -82,7 +82,7 @@
             100% { top: 105vh; transform: translateX(40px) rotate(360deg); opacity: 0; }
         }
 
-        /* 미니 LP 플레이어 */
+        /* 우상단 미니 LP 플레이어 */
         #lp-player {
             position: fixed;
             top: 20px;
@@ -169,7 +169,7 @@
             60% { transform: translateY(-3px); }
         }
 
-        /* 본문 컨테이너 균형 재정렬 */
+        /* 본문 컨테이너 */
         .main-container {
             max-width: 720px;
             margin: 0 auto;
@@ -178,7 +178,7 @@
             z-index: 10;
         }
 
-        /* [수정] 프로필 카드 박스 레이아웃 스케일 최적화 */
+        /* 프로필 카드 디자인 */
         .profile-card {
             display: flex;
             flex-direction: column;
@@ -201,7 +201,7 @@
             border: 3px solid #38bdf8;
             box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
             margin-bottom: 20px;
-            display: block; /* 깨짐 현상 방지용 블록화 */
+            display: block;
         }
 
         .profile-name {
@@ -322,18 +322,20 @@
 </head>
 <body>
 
-    <!-- [검증완료] 백그라운드 무한 루프 오디오 지정 -->
-    <audio id="bgm" src="snow.mp3" loop preload="auto"></audio>
+    <!-- [경로 수정] 한 칸 위 폴더에 있는 snow.mp3를 정확하게 호출 및 자동재생 대기 -->
+    <audio id="bgm" src="../snow.mp3" loop preload="auto"></audio>
 
     <div id="bg-layer"></div>
     <div id="bg-overlay"></div>
     <div id="fx-container"></div>
 
+    <!-- LP 플레이어 컨트롤러 -->
     <div id="lp-player" onclick="toggleBGM()">
         <div id="lp-disc" class="lp-disc"></div>
         <div id="lp-text" class="lp-text">BGM OFF</div>
     </div>
 
+    <!-- 대문 영역 -->
     <div class="intro-wrapper">
         <div class="intro-text">
             거짓없는 맑은 마음이,<br>가장 단단한 무기다.
@@ -343,9 +345,9 @@
 
     <div class="main-container">
         
-        <!-- 고정 파일명 호출 레이아웃 -->
+        <!-- [경로 수정] 한 칸 위 폴더(../)로 이동해 원래의 긴 파일명을 공백 인코딩 처리하여 완전 매칭 -->
         <div class="profile-card">
-            <img class="profile-img" src="profile.png" alt="차설하 프로필" onerror="this.style.display='none'; alert('폴더 내 profile.png 파일이 없습니다!');">
+            <img class="profile-img" src="../realistic,%20photorealistic,%203d,%20incredibly%20absurdres,%20highly%20detailed,%20depth%20of%20f%20s-116744706%20(7).png" alt="차설하 프로필">
             <div class="profile-name">차 설 하 (車雪夏)</div>
             <div class="profile-title">청해 차씨 가주 ｜ 물의 혈통</div>
         </div>
@@ -441,7 +443,7 @@
 
     </div>
 
-    <!-- [핵심] 브라우저 자동 재생 제한 무조건 깨부수는 스크립트 연동 -->
+    <!-- 브라우저 보안 우회 강제 구동 스크립트 -->
     <script>
         const bgm = document.getElementById('bgm');
         const lpDisc = document.getElementById('lp-disc');
@@ -476,34 +478,30 @@
             setTimeout(createParticle, Math.random() * 5000);
         }
 
-        // [최종 병기] 동기식 즉시 강제 재생 트리거 함수
+        // 브라우저 락(Lock)을 관통하는 동기식 음악 재생 엔진
         const forceAudioPlay = () => {
             bgm.play().then(() => {
                 lpDisc.classList.add('spinning');
                 lpText.textContent = "BGM ON";
-                // 한 번이라도 재생 성공 시 전역 트리거 즉시 폐기하여 과부하 방지
                 ['click', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(event => {
                     document.removeEventListener(event, forceAudioPlay);
                 });
             }).catch(err => {
-                console.log("Activation capture pending...");
+                console.log("Audio unlock interaction pending...");
             });
         };
 
-        // 1단계: 진입하자마자 자동 재생 시도 (일부 데스크톱 및 MEI가 쌓인 환경 우회용)
         window.addEventListener('DOMContentLoaded', () => {
             bgm.play().then(() => {
                 lpDisc.classList.add('spinning');
                 lpText.textContent = "BGM ON";
             }).catch(() => {
-                // 2단계: 브라우저가 막을 시 문서 상의 모든 아주 미세한 액션(터치, 스크롤, 마우스 움직임)에 동기적으로 play() 주입
                 ['click', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(event => {
                     document.addEventListener(event, forceAudioPlay, { passive: true });
                 });
             });
         });
 
-        // LP 수동 토글 컨트롤
         function toggleBGM() {
             if (bgm.paused) {
                 bgm.play();
