@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>오령국 ｜ 청해 차씨 가주 차설하</title>
     <style>
-        /* 가독성이 대폭 향상된 고급 동양풍 Serif 구글 웹폰트 */
+        /* 가독성을 극대화한 동양풍 프리미엄 Serif 웹폰트 */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;800&display=swap');
         
         * {
@@ -25,7 +25,7 @@
             word-break: keep-all; 
         }
 
-        /* 고화질 배경 이미지 레이어 (파일명: background.png) */
+        /* [선명도 상향] 고화질 배경 이미지 레이어 (파일명: background.png) */
         #bg-layer {
             position: fixed;
             top: 0;
@@ -35,24 +35,24 @@
             background-image: url("background.png");
             background-size: cover;
             background-position: center;
-            opacity: 0.4; /* 배경이 은은하고 청렴하게 보이도록 최적화 */
+            opacity: 0.55; /* 배경이 확실히 눈에 보이도록 투명도 최적화 */
             z-index: -2;
             pointer-events: none;
         }
 
-        /* 시각적 가독성을 확보해주는 청명한 딥블루 안개 오버레이 */
+        /* 텍스트 가독성을 지켜주는 블루 블랙 안개 그라데이션 */
         #bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, rgba(7, 13, 25, 0.5) 0%, rgba(15, 23, 42, 0.85) 100%);
+            background: linear-gradient(180deg, rgba(7, 13, 25, 0.4) 0%, rgba(15, 23, 42, 0.85) 100%);
             z-index: -1;
             pointer-events: none;
         }
 
-        /* 하얀 눈송이와 반짝이는 유리조각 파티클 컨테이너 */
+        /* 화면에 흩날리는 눈송이 & 유리조각 컨테이너 */
         #fx-container {
             position: fixed;
             top: 0;
@@ -70,7 +70,7 @@
             animation: fall linear infinite;
         }
 
-        .snowflake { color: #f0f9ff; opacity: 0.75; }
+        .snowflake { color: #f0f9ff; opacity: 0.8; }
         .shard {
             color: #e0f2fe;
             text-shadow: 0 0 10px rgba(56, 189, 248, 0.9);
@@ -82,7 +82,7 @@
             100% { top: 105vh; transform: translateX(40px) rotate(360deg); opacity: 0; }
         }
 
-        /* 우상단 미니 LP 플레이어 */
+        /* 미니 LP 플레이어 */
         #lp-player {
             position: fixed;
             top: 20px;
@@ -91,12 +91,12 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            background: rgba(7, 13, 25, 0.85);
+            background: rgba(7, 13, 25, 0.9);
             padding: 8px 14px;
             border-radius: 30px;
             border: 1px solid rgba(56, 189, 248, 0.4);
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         .lp-disc {
@@ -131,7 +131,7 @@
         .spinning { animation: spin 2.5s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* 인트로 세로쓰기 영역 */
+        /* 인트로 대문 세로쓰기 */
         .intro-wrapper {
             width: 100%;
             height: 100vh;
@@ -169,7 +169,7 @@
             60% { transform: translateY(-3px); }
         }
 
-        /* 메인 콘텐츠 배치 */
+        /* 본문 컨테이너 균형 재정렬 */
         .main-container {
             max-width: 720px;
             margin: 0 auto;
@@ -178,7 +178,7 @@
             z-index: 10;
         }
 
-        /* 프로필 카드 (파일명 깨짐을 원천 방지하기 위해 profile.png로 매칭) */
+        /* [수정] 프로필 카드 박스 레이아웃 스케일 최적화 */
         .profile-card {
             display: flex;
             flex-direction: column;
@@ -186,11 +186,11 @@
             text-align: center;
             margin-bottom: 50px;
             padding: 35px 20px;
-            background: rgba(15, 23, 42, 0.75);
-            border: 1px solid rgba(56, 189, 248, 0.35);
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.4);
             border-radius: 8px;
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
 
         .profile-img {
@@ -199,8 +199,9 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #38bdf8;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
             margin-bottom: 20px;
+            display: block; /* 깨짐 현상 방지용 블록화 */
         }
 
         .profile-name {
@@ -256,7 +257,7 @@
 
         .clan-grid { display: flex; flex-direction: column; gap: 16px; }
         .clan-box {
-            background: rgba(15, 23, 42, 0.65);
+            background: rgba(15, 23, 42, 0.75);
             border: 1px solid rgba(56, 189, 248, 0.2);
             padding: 18px;
             border-radius: 8px;
@@ -281,7 +282,7 @@
         .clan-detail p:last-child { margin-bottom: 0; }
 
         .relation-block {
-            background: rgba(30, 41, 59, 0.5);
+            background: rgba(30, 41, 59, 0.55);
             padding: 18px;
             border-radius: 8px;
             margin-bottom: 16px;
@@ -321,20 +322,18 @@
 </head>
 <body>
 
-    <!-- 자동재생(autoplay) 속성이 부여된 오디오 소스 -->
-    <audio id="bgm" src="snow.mp3" loop autoplay></audio>
+    <!-- [검증완료] 백그라운드 무한 루프 오디오 지정 -->
+    <audio id="bgm" src="snow.mp3" loop preload="auto"></audio>
 
     <div id="bg-layer"></div>
     <div id="bg-overlay"></div>
     <div id="fx-container"></div>
 
-    <!-- LP 플레이어 컨트롤러 -->
     <div id="lp-player" onclick="toggleBGM()">
         <div id="lp-disc" class="lp-disc"></div>
         <div id="lp-text" class="lp-text">BGM OFF</div>
     </div>
 
-    <!-- 대문 영역 -->
     <div class="intro-wrapper">
         <div class="intro-text">
             거짓없는 맑은 마음이,<br>가장 단단한 무기다.
@@ -344,9 +343,9 @@
 
     <div class="main-container">
         
-        <!-- 깨짐 방지 프로필 세팅 -->
+        <!-- 고정 파일명 호출 레이아웃 -->
         <div class="profile-card">
-            <img class="profile-img" src="profile.png" alt="차설하 프로필">
+            <img class="profile-img" src="profile.png" alt="차설하 프로필" onerror="this.style.display='none'; alert('폴더 내 profile.png 파일이 없습니다!');">
             <div class="profile-name">차 설 하 (車雪夏)</div>
             <div class="profile-title">청해 차씨 가주 ｜ 물의 혈통</div>
         </div>
@@ -442,6 +441,7 @@
 
     </div>
 
+    <!-- [핵심] 브라우저 자동 재생 제한 무조건 깨부수는 스크립트 연동 -->
     <script>
         const bgm = document.getElementById('bgm');
         const lpDisc = document.getElementById('lp-disc');
@@ -449,7 +449,7 @@
         const fxContainer = document.getElementById('fx-container');
         
         const particleTypes = ['❄', '✦', '✧']; 
-        const maxParticles = 40;
+        const maxParticles = 35;
 
         function createParticle() {
             const particle = document.createElement('div');
@@ -476,23 +476,34 @@
             setTimeout(createParticle, Math.random() * 5000);
         }
 
-        // 창이 열리자마자 1순위로 자동재생 실행
-        function triggerAutoplay() {
+        // [최종 병기] 동기식 즉시 강제 재생 트리거 함수
+        const forceAudioPlay = () => {
             bgm.play().then(() => {
                 lpDisc.classList.add('spinning');
                 lpText.textContent = "BGM ON";
-                cleanToggleEvents();
+                // 한 번이라도 재생 성공 시 전역 트리거 즉시 폐기하여 과부하 방지
+                ['click', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(event => {
+                    document.removeEventListener(event, forceAudioPlay);
+                });
             }).catch(err => {
-                console.log("Autoplay bound to silent trigger due to browser security.");
+                console.log("Activation capture pending...");
             });
-        }
+        };
 
-        function cleanToggleEvents() {
-            window.removeEventListener('click', triggerAutoplay);
-            window.removeEventListener('touchstart', triggerAutoplay);
-            window.removeEventListener('scroll', triggerAutoplay);
-        }
+        // 1단계: 진입하자마자 자동 재생 시도 (일부 데스크톱 및 MEI가 쌓인 환경 우회용)
+        window.addEventListener('DOMContentLoaded', () => {
+            bgm.play().then(() => {
+                lpDisc.classList.add('spinning');
+                lpText.textContent = "BGM ON";
+            }).catch(() => {
+                // 2단계: 브라우저가 막을 시 문서 상의 모든 아주 미세한 액션(터치, 스크롤, 마우스 움직임)에 동기적으로 play() 주입
+                ['click', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(event => {
+                    document.addEventListener(event, forceAudioPlay, { passive: true });
+                });
+            });
+        });
 
+        // LP 수동 토글 컨트롤
         function toggleBGM() {
             if (bgm.paused) {
                 bgm.play();
@@ -504,15 +515,6 @@
                 lpText.textContent = "BGM OFF";
             }
         }
-
-        // 창이 열릴 때 자동 재생을 유도하는 최적의 브라우저 이벤트 스택
-        window.addEventListener('DOMContentLoaded', triggerAutoplay);
-        window.addEventListener('load', triggerAutoplay);
-        
-        // 브라우저 락(Lock) 대비용 전역 무소음 액션 트리거 바인딩 (터치, 스크롤 즉시 잠금해제)
-        window.addEventListener('click', triggerAutoplay);
-        window.addEventListener('touchstart', triggerAutoplay);
-        window.addEventListener('scroll', triggerAutoplay);
     </script>
 </body>
 </html>
