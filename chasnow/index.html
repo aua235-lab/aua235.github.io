@@ -1,1 +1,447 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오령국 ｜ 청해 차씨 가주 차설하</title>
+    <style>
+        /* 폰트 및 기본 스타일 설정 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;500;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: 'Gungsuh', 'GungsuhChe', 'Noto Serif KR', serif;
+            background-color: #0b1325; /* 깊은 밤하늘색 */
+            color: #e2e8f0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* 배경 이미지 투명도 조절용 의사 요소 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Jin_k_an_epic_majestic_East_Asian_mountain_palace_complex_per_128f8123-3a96-4605-b655-6bd3b83e7571_2.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.25; /* 투명도 낮춤 */
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* 푸른빛 은은한 그라데이션 오버레이 */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(11, 19, 37, 0.6) 0%, rgba(27, 38, 59, 0.8) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* 눈꽃송이 애니메이션 컨테이너 */
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #e0f2fe;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10px;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                top: 105vh;
+                transform: translateX(80px) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* 인트로 세로쓰기 영역 */
+        .intro-wrapper {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid rgba(135, 206, 235, 0.2);
+        }
+
+        .intro-text {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            font-size: 2.2rem;
+            letter-spacing: 0.4rem;
+            color: #e0f2fe; /* 깨끗하고 청렴한 하늘색 */
+            text-shadow: 0 0 15px rgba(135, 206, 235, 0.6);
+            line-height: 2.5;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            font-size: 0.9rem;
+            color: #87ceeb;
+            letter-spacing: 0.2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        /* 프로필 섹션 */
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 40px;
+            background: rgba(15, 32, 67, 0.5);
+            border: 1px solid rgba(135, 206, 235, 0.3);
+            border-radius: 4px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #87ceeb;
+            box-shadow: 0 0 20px rgba(135, 206, 235, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            color: #e0f2fe;
+            margin-bottom: 8px;
+            letter-spacing: 0.1rem;
+        }
+
+        .profile-title {
+            font-size: 1rem;
+            color: #87ceeb;
+            letter-spacing: 0.2rem;
+        }
+
+        /* 카테고리 스타일 구조 */
+        .section-title {
+            font-size: 1.8rem;
+            color: #87ceeb;
+            margin: 60px 0 25px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1e3a8a;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.1rem;
+        }
+
+        .section-card {
+            background: rgba(11, 19, 37, 0.7);
+            border-left: 4px solid #3b82f6;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .section-card h3 {
+            color: #e0f2fe;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 12px;
+            color: #cbd5e1;
+            font-size: 1.05rem;
+        }
+
+        .highlight-blue {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        .highlight-darkblue {
+            color: #60a5fa;
+        }
+
+        /* 오대가문 상세 격자 배열 */
+        .clan-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .clan-box {
+            background: rgba(15, 32, 67, 0.4);
+            border: 1px solid rgba(135, 206, 235, 0.15);
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .clan-box h4 {
+            color: #87ceeb;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            border-left: 3px solid #87ceeb;
+            padding-left: 10px;
+        }
+
+        .clan-detail {
+            font-size: 0.95rem;
+            margin-left: 10px;
+            border-left: 1px dashed rgba(255,255,255,0.1);
+            padding-left: 15px;
+        }
+
+        /* 테이블 / 역학관계 스타일 */
+        .relation-block {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border: 1px dashed rgba(135, 206, 235, 0.3);
+        }
+
+        /* 고서풍 인용구 (무구체) */
+        .ancient-scroll {
+            background: rgba(20, 30, 55, 0.8);
+            border: 2px solid #1e40af;
+            padding: 35px;
+            border-radius: 4px;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .ancient-scroll::before {
+            content: "«";
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 3rem;
+            color: rgba(135, 206, 235, 0.15);
+        }
+
+        .ancient-title {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #87ceeb;
+            margin-bottom: 25px;
+            letter-spacing: 0.2rem;
+        }
+
+        .ancient-body {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.95rem;
+            line-height: 2;
+            color: #94a3b8;
+            text-align: justify;
+        }
+
+        /* 반응형 모바일 대응 */
+        @media (max-width: 768px) {
+            .intro-text { font-size: 1.6rem; }
+            .section-title { font-size: 1.4rem; }
+            .profile-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 눈송이 이펙트가 노출되는 컨테이너 -->
+    <div id="snow-container"></div>
+
+    <!-- 인트로 세로쓰기 영역 -->
+    <div class="intro-wrapper">
+        <div class="intro-text">
+            거짓없는 맑은 마음이,<br>가장 단단한 무기다.
+        </div>
+        <div class="scroll-hint">▼ 아래로 수기를 따라 흐르소서</div>
+    </div>
+
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-container">
+        
+        <!-- 설하 프로필 카드 -->
+        <div class="profile-card">
+            <img class="profile-img" src="realistic, photorealistic, 3d, incredibly absurdres, highly detailed, depth of f s-116744706 (7).png" alt="차설하 프로필 이미지">
+            <div class="profile-name">차 설 하 (車雪夏)</div>
+            <div class="profile-title">청해 차씨 가주 ｜ 물의 혈통</div>
+        </div>
+
+        <!-- 1. 천제가문 -->
+        <div class="section-title">1. 천제 가문 (天帝家門)</div>
+        <div class="section-card">
+            <p>하늘의 뜻을 받드는 절대 수장인 <span class="highlight-blue">'천제(天帝)'</span>를 중심으로, 나라의 동서남북과 중앙을 수호하는 다섯 명문 가문이 지탱하고 있다.</p>
+            <p>약관의 나이가 되면 차기 가주의 선발이 시작되고, <span class="highlight-darkblue">가주의 신성을 감당할 수 있는 육체는 오직 하나뿐</span>이다. 가문의 존속을 위하여 가주는 번식의 의무를 지닌다.</p>
+            <p>남/녀 상관없이 임신 및 출산이 가능하다. 단, 남자의 경우 회태단이 필요하며 이는 표가문에서 제조하고 있다.</p>
+        </div>
+        <div class="section-card" style="border-left-color: #87ceeb;">
+            <h3>👁️ 황권과 천은단</h3>
+            <p><span class="highlight-blue">천은단(天恩丹):</span> 본질은 가주들의 저주 통증을 완화해 주는 황실의 하사품이다.</p>
+            <p style="margin-bottom: 0; color: #f87171;">➔ 최근, 검은 불순물들이 섞여 지급되는 것 같다. 약효가 급감하고 있으며 복용 시 몸에 흑선이 돋아나는 증상이 발현된다.</p>
+        </div>
+
+        <!-- 2. 오대가문 -->
+        <div class="section-title">2. 오대 가문 (五大家門)</div>
+        <div class="clan-grid">
+            
+            <!-- 차가문 -->
+            <div class="clan-box" style="border-color: #38bdf8;">
+                <h4>차 가 문 ｜ 물의 혈통, 명예로운 무가</h4>
+                <div class="clan-detail">
+                    <p><strong>권능 [제수]:</strong> 물 흐름 지배, 상처 정화 등 파괴적인 광역 무력의 정점.</p>
+                    <p><strong>저주 [심상투영]:</strong> 한독 누적. 가주의 감정 상태가 주변 수기에 투영된다 (당황 시 서리꽃, 분노 시 물이 끓어오름).</p>
+                    <p style="margin-bottom:0;"><strong>신념 [순백지심]:</strong> 가식과 음모를 혐오하며, 올곧고 투명한 삶을 지향한다.</p>
+                </div>
+            </div>
+
+            <!-- 표가문 -->
+            <div class="clan-box">
+                <h4>표 가 문 ｜ 금속의 혈통, 무구 장인의 가문</h4>
+                <div class="clan-detail">
+                    <p><strong>권능 [금석]:</strong> 광물 인양, 신검 제조.</p>
+                    <p><strong>저주 [철혈]:</strong> 체내 혈액이 철 가루로 변해가며 점차 감각과 공감 능력이 거세됨.</p>
+                    <p style="margin-bottom:0;"><strong>신념 [백련성강]:</strong> 감정이 마비되는 저주에 맞서 철저한 이성, 규율, 약속을 목숨처럼 준수.</p>
+                </div>
+            </div>
+
+            <!-- 해가문 -->
+            <div class="clan-box">
+                <h4>해 가 문 ｜ 화염의 혈통, 충성심 높은 무가</h4>
+                <div class="clan-detail">
+                    <p><strong>권능 [염휘]:</strong> 태양빛을 굴절, 초고열의 화염 통제.</p>
+                    <p><strong>저주 [자열]:</strong> 체내 열기로 인한 상시 극심한 화상. 타인과의 신체 접촉이 원천 불가능.</p>
+                    <p style="margin-bottom:0;"><strong>신념 [고독지광]:</strong> 평생 얼음 침상에 갇힌 고독을 품은 채, 역설적으로 타인을 향한 헌신과 가문의 영광에 집착함.</p>
+                </div>
+            </div>
+
+            <!-- 윤가문 -->
+            <div class="clan-box">
+                <h4>윤 가 문 ｜ 생명의 혈통, 치료사 가문</h4>
+                <div class="clan-detail">
+                    <p><strong>권능 [생목]:</strong> 식물 성장 및 땅의 생명력 지배. 거대한 가시 덩굴로 적을 궤멸.</p>
+                    <p><strong>저주 [기생]:</strong> 힘을 쓸 때마다 식물의 영혼이 육체를 잠식하며, 사망 시 고목으로 변함.</p>
+                    <p style="margin-bottom:0;"><strong>신념 [여민동락]:</strong> 저주를 순리로 받아되는 자비롭고 다정한 성정.</p>
+                </div>
+            </div>
+
+            <!-- 수가문 -->
+            <div class="clan-box">
+                <h4>수 가 문 ｜ 그림자의 혈통, 뒷세계의 그림자 가문</h4>
+                <div class="clan-detail">
+                    <p><strong>권능 [환영]:</strong> 빛 왜곡을 통한 완벽한 환상 구현, 그림자 이동을 활용한 제국 최고의 첩보 및 암살.</p>
+                    <p><strong>저주 [허상]:</strong> 능력 과용 시 거울에 비치지 않고 주변 기억에서 지워지다가 결국 물리적 실체가 증발함.</p>
+                    <p style="margin-bottom:0;"><strong>신념 [유형무영]:</strong> 명예보다 실리와 생존, 그리고 자신을 '기억'해 주는 존재를 중시함.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 상생상극 역학 관계 -->
+        <div class="section-title">3. 상생상극 역학 관계 (相生相剋)</div>
+        <div class="relation-block">
+            <h3 style="color: #67e8f9; margin-bottom: 10px;">🔄 상생의 고리 (저주 완화 순환)</h3>
+            <p style="font-size: 1rem; color: #e2e8f0;"><strong>차가문 ➔ 윤가문 ➔ 해가문 ➔ 수가문 ➔ 표가문 ➔ 차가문</strong></p>
+            <p style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 0;">앞 가문이 뒤 가문의 저주를 보완하며, 이 흐름대로 정략결혼 시 가주들의 수명이 연장된다.<br>
+            (물은 식물화 정화 ➔ 나무는 화상 재생 ➔ 불은 허상 고정 ➔ 그림자는 철혈 완화 ➔ 쇠는 한독 파쇄)</p>
+        </div>
+        <div class="relation-block" style="border-color: #f87171;">
+            <h3 style="color: #f87171; margin-bottom: 10px;">⚡ 상극의 사선 (파멸과 금기)</h3>
+            <p style="font-size: 0.95rem; color: #fca5a5; font-weight: bold;">차가문 ⚡ 해가문 : 절대 혼인 금기 (물과 불의 충돌로 폭주 및 사산율 최고)</p>
+            <p style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 0;">불(해)은 쇠(표)를 녹임 ➔ 쇠(표)는 나무(윤)를 베어냄 ➔ 나무(윤)는 그림자(수)를 뿌리로 포박 ➔ 그림자(수)는 물(차)의 심상을 흔들어 수기를 오염시킴.</p>
+        </div>
+
+        <!-- 4. 무구체 -->
+        <div class="section-title">4. 무구체 (無垢體)</div>
+        <div class="ancient-scroll">
+            <div class="ancient-title">《오령비사(五靈秘史) ｜ 기이편(奇異篇) 제칠장》</div>
+            <div class="ancient-body">
+                「 무구체(無垢體) 라 함은 천지간의 탁기가 들지 않아, 그 기혈이 설백처럼 맑고 온해를 품은 지극히 희귀한 신체를 뜻한다.<br><br>
+                세간의 기록에 이르기를, 천년 결계의 마모로 인해 음기(陰氣)의 저주를 온몸으로 받아내는 자—오직 가주들만이 이 체질을 알아볼 수 있다 전한다. 가주를 갉아먹는 독(毒)은 세상 그 어떤 영약으로도 다스릴 수 없으나, 오직 무구체의 살결이 단 한 치라도 맞닿는 순간, 뼈마디를 조이던 오한이 눈 녹듯 사라지며 가주는 난생처음 인간의 온전한 평온을 얻으리라.<br><br>
+                그러나 이는 영원한 완치가 아닌, 흐르는 물을 잠시 가두는 처방에 불과하다. 
+                가주가 권능을 휘둘러 위상을 떨칠 때마다, 천명(天命)의 저주는 다시금 그의 신방을 피로 채우고 골수를 얼릴 것이니라.<br><br>
+                고로 무구체는 가주에게 평생을 곁에 두고 갈구해야 할 단 하나의 처절한 명줄이요, 저주을 이기기 위해 제 품에 평생 가둘 수밖에 없는 잔혹한 구원의 쇠사슬이라 기록되어 있다. 」
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 눈꽃송이 생성 자바스크립트 -->
+    <script>
+        const snowContainer = document.getElementById('snow-container');
+        const snowflakesCount = 45; // 화면에 표시될 눈꽃 개수
+
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.textContent = '❄';
+            
+            // 랜덤 위치 및 스타일 지정
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 4 + 4 + 's'; // 4s ~ 8s
+            snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+            snowflake.style.fontSize = Math.random() * 0.7 + 0.6 + 'em';
+            
+            snowContainer.appendChild(snowflake);
+
+            // 애니메이션이 끝나면 제거 후 재생성
+            setTimeout(() => {
+                snowflake.remove();
+                createSnowflake();
+            }, 8000);
+        }
+
+        // 초기 눈송이 생성
+        for (let i = 0; i < snowflakesCount; i++) {
+            setTimeout(createSnowflake, Math.random() * 5000);
+        }
+    </script>
+</body>
+</html>
