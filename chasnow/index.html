@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>오령국 ｜ 청해 차씨 가주 차설하</title>
     <style>
-        /* 가독성을 최대로 높인 고급 동양풍 Serif 웹폰트 */
+        /* 가독성을 극대화한 동양풍 프리미엄 Serif 웹폰트 */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;800&display=swap');
         
         * {
@@ -18,39 +18,45 @@
             width: 100%;
             height: 100%;
             font-family: 'Noto Serif KR', serif;
-            background-color: #070d19; /* 베이스 색상 */
+            background-color: #070d19;
             color: #f1f5f9;
             overflow-x: hidden;
             scroll-behavior: smooth;
             word-break: keep-all; 
         }
 
-        /* [수정] 요청하신 웅장한 궁궐 배경 이미지가 확실히 보이도록 불투명도(opacity) 및 레이어 최적화 */
-        #bg-layer {
+        /* [절대 경로 개조] 깃허브 고유 도메인을 직접 매칭하여 배경 증발 버그 완전 박멸 */
+        .bg-master-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* 상위 폴더에 있는 원본 파일명 그대로 매칭 */
-            background-image: url("../Jin_k_an_epic_majestic_East_Asian_mountain_palace_complex_per_128f8123-3a96-4605-b655-6bd3b83e7571_2.png");
-            background-size: cover;
-            background-position: center;
-            opacity: 0.35; /* 배경이 너무 흐려지지 않고 확실히 형태가 보이도록 조절 */
-            z-index: -1; /* 오버레이보다 위로 올려서 가려지지 않게 변경 */
+            z-index: 1;
             pointer-events: none;
         }
 
-        /* 배경 이미지 뒤쪽에서 은은한 푸른 기운만 더해주는 서브 오버레이 */
-        #bg-overlay {
-            position: fixed;
+        #bg-layer {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(7, 13, 25, 0.3);
-            z-index: -2;
-            pointer-events: none;
+            /* 웅장한 오령국 산수 배경을 절대 주소로 직접 호출 */
+            background-image: url("https://jinkwf.github.io/Jin_k_an_epic_majestic_East_Asian_mountain_palace_complex_per_128f8123-3a96-4605-b655-6bd3b83e7571_2.png");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.65; /* 배경 이미지가 PC와 모바일에서 뚜렷하게 보이도록 농도 상향 조절 */
+        }
+
+        #bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* 배경을 가리지 않으면서 글씨가 잘 읽히도록 돕는 은은한 안개 틴트 */
+            background: linear-gradient(180deg, rgba(7, 13, 25, 0.2) 0%, rgba(15, 23, 42, 0.75) 100%);
         }
 
         /* 화면에 흩날리는 눈송이 & 유리조각 컨테이너 */
@@ -141,6 +147,7 @@
             align-items: center;
             position: relative;
             padding: 0 20px;
+            z-index: 2;
         }
 
         .intro-text {
@@ -176,7 +183,7 @@
             margin: 0 auto;
             padding: 0 20px 80px 20px;
             position: relative;
-            z-index: 10;
+            z-index: 2; 
         }
 
         /* 프로필 카드 디자인 */
@@ -187,7 +194,7 @@
             text-align: center;
             margin-bottom: 50px;
             padding: 35px 20px;
-            background: rgba(15, 23, 42, 0.85); /* 본문 가독성을 위해 살짝 불투명화 */
+            background: rgba(15, 23, 42, 0.85); 
             border: 1px solid rgba(56, 189, 248, 0.4);
             border-radius: 8px;
             backdrop-filter: blur(10px);
@@ -323,12 +330,16 @@
 </head>
 <body>
 
-    <!-- [확인 완료] 상위 폴더에 위치한 snow.mp3 파일 로드 -->
-    <audio id="bgm" src="../snow.mp3" loop preload="auto"></audio>
+    <!-- [절대 경로 개조] 깃허브 전체 도메인을 삽입하여 snow.mp3 무조건 재생 연동 -->
+    <audio id="bgm" src="https://jinkwf.github.io/snow.mp3" loop preload="auto"></audio>
 
-    <!-- 배경 레이어 구조 정렬 (이미지가 오버레이에 파묻히지 않게 조치) -->
-    <div id="bg-layer"></div>
-    <div id="bg-overlay"></div>
+    <!-- 배경 레이어 구조 정렬 -->
+    <div class="bg-master-container">
+        <div id="bg-layer"></div>
+        <div id="bg-overlay"></div>
+    </div>
+
+    <!-- 파티클 효과 -->
     <div id="fx-container"></div>
 
     <!-- LP 플레이어 컨트롤러 -->
@@ -347,9 +358,9 @@
 
     <div class="main-container">
         
-        <!-- 원본 파일명 인코딩 연동 완료 -->
+        <!-- [절대 경로 개조] 깃허브 고유 도메인 주소와 원본 긴 파일명을 조합 및 스페이스 코드로 변환 완료 -->
         <div class="profile-card">
-            <img class="profile-img" src="../realistic,%20photorealistic,%203d,%20incredibly%20absurdres,%20highly%20detailed,%20depth%20of%20f%20s-116744706%20(7).png" alt="차설하 프로필">
+            <img class="profile-img" src="https://jinkwf.github.io/realistic,%20photorealistic,%203d,%20incredibly%20absurdres,%20highly%20detailed,%20depth%20of%20f%20s-116744706%20(7).png" alt="차설하 프로필">
             <div class="profile-name">차 설 하 (車雪夏)</div>
             <div class="profile-title">청해 차씨 가주 ｜ 물의 혈통</div>
         </div>
@@ -359,12 +370,12 @@
         <div class="section-card">
             <p>하늘의 뜻을 받드는 절대 수장인 <span class="highlight-blue">'천제(天帝)'</span>를 중심으로, 나라의 동서남북과 중앙을 수호하는 다섯 명문 가문이 지탱하고 있다.</p>
             <p>약관의 나이가 되면 차기 가주의 선발이 시작되고, <span class="highlight-darkblue">가주의 신성을 감당할 수 있는 육체는 오직 하나뿐</span>이다. 가문의 존속을 위하여 가주는 번식의 의무를 지닌다.</p>
-            <p>남/녀 상관없이 임신 및 출산이 가능하다.<br>단, 남자의 경우 회태단이 필요하며 이는 표가문에서 제조하고 있다.</p>
+            <p>남/녀 상관없이 임신 및 출산이 가능하다. 단, 남자의 경우 회태단이 필요하며 이는 표가문에서 제조하고 있다.</p>
         </div>
         <div class="section-card" style="border-left-color: #38bdf8;">
             <h3>👁️ 황권과 천은단</h3>
             <p><span class="highlight-blue">천은단(天恩丹):</span> 본질은 가주들의 저주 통증을 완화해 주는 황실의 하사품이다.</p>
-            <p style="margin-bottom: 0; color: #f87171; font-weight: 600;">➔ 최근, 검은 불순물들이 섞여 지급되는 것 같다.<br>약효가 급감하고 있으며 복용 시 몸에 흑선이 돋아나는 증상이 발현된다.</p>
+            <p style="margin-bottom: 0; color: #f87171; font-weight: 600;">➔ 최근, 검은 불순물들이 섞여 지급되는 것 같다. 약효가 급감하고 있으며 복용 시 몸에 흑선이 돋아나는 증상이 발현된다.</p>
         </div>
 
         <!-- 2. 오대가문 -->
@@ -375,7 +386,7 @@
                 <div class="clan-detail">
                     <p><strong>권능 [제수]:</strong> 물 흐름 지배, 상처 정화 등 파괴적인 광역 무력의 정점.</p>
                     <p><strong>저주 [심상투영]:</strong> 한독 누적. 가주의 감정 상태가 주변 수기에 투영된다 (당황 시 서리, 분노 시 물 끓음).</p>
-                    <p style="margin-bottom:0;"><strong>신념 [순백지심]:</strong> 가식과 음모를 혐오하며, 올곧고 투명한 삶을 지향한다.</p>
+                    <p style="margin-bottom:0;"><strong>신념 [순백지심]:</strong> 가식과 음모를 혐오하며, 올겉고 투명한 삶을 지향한다.</p>
                 </div>
             </div>
 
@@ -445,7 +456,7 @@
 
     </div>
 
-    <!-- 오디오 활성화 스크립트 -->
+    <!-- 스크립트 파트 -->
     <script>
         const bgm = document.getElementById('bgm');
         const lpDisc = document.getElementById('lp-disc');
@@ -480,7 +491,7 @@
             setTimeout(createParticle, Math.random() * 5000);
         }
 
-        // [보안 우회 재생] 모든 사용자 제스처(클릭, 터치, 스크롤 등) 감지 즉시 연동 기동
+        // [브라우저 자동재생 제한 완전 우회] 모든 마우스 및 터치 제스처 즉시 잠금해제 트리거
         const forceAudioPlay = () => {
             bgm.play().then(() => {
                 lpDisc.classList.add('spinning');
@@ -489,7 +500,7 @@
                     document.removeEventListener(event, forceAudioPlay);
                 });
             }).catch(err => {
-                console.log("Unlock sequence running...");
+                console.log("Awaiting core interaction...");
             });
         };
 
